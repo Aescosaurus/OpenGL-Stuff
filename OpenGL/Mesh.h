@@ -1,0 +1,24 @@
+#pragma once
+
+#include "Vertex.h"
+#include <GL/glew.h>
+
+class Mesh
+{
+public:
+	Mesh( Vertex* vertices,int nVertices );
+	~Mesh();
+
+	void Draw();
+private:
+	enum
+	{
+		POSITION_VB,
+
+		NUM_BUFFERS
+	};
+
+	GLuint vertexArrayObj;
+	GLuint vertexArrayBuffers[NUM_BUFFERS];
+	int drawCount;
+};
