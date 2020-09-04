@@ -7,6 +7,8 @@ class Shader
 {
 public:
 	Shader( const std::string& filename );
+	Shader( const Shader& ) = delete;
+	Shader& operator=( const Shader& ) = delete;
 	~Shader();
 
 	void Bind();

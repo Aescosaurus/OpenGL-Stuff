@@ -16,7 +16,6 @@ int main( int argc,char* args[] )
 	};
 
 	Mesh mesh{ vertices,sizeof( vertices ) / sizeof( vertices[0] ) };
-
 	Shader shader{ "Shaders/BasicShader" };
 
 	while( !display.IsClosed() )

@@ -7,6 +7,8 @@ class Mesh
 {
 public:
 	Mesh( Vertex* vertices,int nVertices );
+	Mesh( const Mesh& ) = delete;
+	Mesh& operator=( const Mesh& ) = delete;
 	~Mesh();
 
 	void Draw();
