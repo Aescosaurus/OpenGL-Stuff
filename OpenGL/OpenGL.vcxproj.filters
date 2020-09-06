@@ -16,6 +16,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{f46e9ddf-7b07-4542-9ff4-3c8c0dbd9cc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\3D Base">
+      <UniqueIdentifier>{042bc847-e1d9-441d-bc36-fc5d5a2b12cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{e13a4614-9e9e-4a75-9053-c947aeafb41d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -38,43 +44,46 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Display.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\3D Base</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Display.h">
+      <Filter>Header Files\3D Base</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Surface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="obj_loader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\3D Base</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader.h">
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files\3D Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Transform.h">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="Shaders\VertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\PixelShader.glsl">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="Transform.h">
+      <Filter>Header Files\3D Base</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "Model.h"
+#include "Cube.h"
 
 int main( int argc,char* args[] )
 {
@@ -14,12 +16,13 @@ int main( int argc,char* args[] )
 
 	Display display{ width,height,"Display" };
 
-	Mesh mesh2{ "Models/Monkey.obj" };
 	Shader shader{ "Shaders/VertexShader.glsl","Shaders/PixelShader.glsl" };
 	Texture tex{ "Images/Bricks2.bmp" };
 	Camera cam{ glm::vec3( 0.0f,0.0f,-4.0f ),70.0f,
 		float( width ) / float( height ),0.01f,1000.0f };
-	Transform xform;
+
+	// Model cube{ "Models/Cube.obj" };
+	Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 
 	while( !display.IsClosed() )
 	{
@@ -27,8 +30,11 @@ int main( int argc,char* args[] )
 
 		shader.Bind();
 		tex.Bind( 0 );
-		shader.Update( xform,cam );
-		mesh2.Draw();
+		shader.Update( cube.xform,cam );
+		cube.Draw();
+
+		cube.xform.rot.x = 0.4f;
+		cube.xform.rot.y += 0.02f;
 
 		display.Update();
 	}
