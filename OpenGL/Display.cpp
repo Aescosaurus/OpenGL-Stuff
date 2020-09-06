@@ -52,6 +52,12 @@ void Display::Update()
 	{
 		switch( e.type )
 		{
+		case SDL_KEYDOWN:
+			kbd.OnKeyPress( e.key.keysym.sym );
+			break;
+		case SDL_KEYUP:
+			kbd.OnKeyRelease( e.key.keysym.sym );
+			break;
 		case SDL_QUIT:
 			closed = true;
 			break;

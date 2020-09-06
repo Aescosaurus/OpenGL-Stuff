@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Models">
       <UniqueIdentifier>{e13a4614-9e9e-4a75-9053-c947aeafb41d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Framework">
+      <UniqueIdentifier>{a7e87271-e47e-4104-be5d-6183af15ded9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Cube.h">
       <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

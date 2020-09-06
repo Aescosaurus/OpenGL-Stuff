@@ -14,7 +14,7 @@ int main( int argc,char* args[] )
 	const int width = 800;
 	const int height = 600;
 
-	Display display{ width,height,"Display" };
+	Display wnd{ width,height,"Display" };
 
 	Shader shader{ "Shaders/VertexShader.glsl","Shaders/PixelShader.glsl" };
 	Texture tex{ "Images/Bricks2.bmp" };
@@ -24,19 +24,18 @@ int main( int argc,char* args[] )
 	// Model cube{ "Models/Cube.obj" };
 	Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 
-	while( !display.IsClosed() )
+	while( !wnd.IsClosed() )
 	{
-		display.Clear( 0.0f,1.0f,1.0f );
+		wnd.Clear( 0.0f,1.0f,1.0f );
 
 		shader.Bind();
 		tex.Bind( 0 );
 		shader.Update( cube.xform,cam );
 		cube.Draw();
 
-		cube.xform.rot.x = 0.4f;
-		cube.xform.rot.y += 0.02f;
+		if( wnd.kbd.KeyIsPressed( 'A' ) ) cube.xform.rot.x += 0.02f;
 
-		display.Update();
+		wnd.Update();
 	}
 
 	return( 0 );

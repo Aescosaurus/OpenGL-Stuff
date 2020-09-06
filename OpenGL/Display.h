@@ -2,6 +2,7 @@
 
 #include <string>
 #include <sdl2/SDL.h>
+#include "Keyboard.h"
 
 class Display
 {
@@ -15,6 +16,8 @@ public:
 	void Clear( float r,float g,float b,float a = 1.0f );
 
 	bool IsClosed() const;
+public:
+	Keyboard kbd;
 private:
 	SDL_Window* pWnd;
 	SDL_GLContext glCtx;
