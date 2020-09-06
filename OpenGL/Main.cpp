@@ -21,10 +21,14 @@ int main( int argc,char* args[] )
 		Vertex( 0.5f,-0.5f,0.0f,1.0f,0.0f )
 	};
 
-	Mesh mesh{ vertices,sizeof( vertices ) / sizeof( vertices[0] ) };
+	unsigned int indices[] = { 0,1,2 };
+
+	Mesh mesh{ vertices,sizeof( vertices ) / sizeof( vertices[0] ),
+		indices,sizeof( indices ) / sizeof( indices[0] ) };
+	Mesh mesh2{ "Models/Monkey.obj" };
 	Shader shader{ "Shaders/BasicShader" };
 	Texture tex{ "Images/Bricks2.bmp" };
-	Camera cam{ glm::vec3( 0.0f,0.0f,-3.0f ),70.0f,
+	Camera cam{ glm::vec3( 0.0f,0.0f,-4.0f ),70.0f,
 		float( width ) / float( height ),0.01f,1000.0f };
 	Transform xform;
 
@@ -46,7 +50,7 @@ int main( int argc,char* args[] )
 		shader.Bind();
 		tex.Bind( 0 );
 		shader.Update( xform,cam );
-		mesh.Draw();
+		mesh2.Draw();
 
 		display.Update();
 

@@ -22,6 +22,7 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="obj_loader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Texture.h" />
