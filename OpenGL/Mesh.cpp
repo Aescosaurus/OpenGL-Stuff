@@ -10,6 +10,7 @@ Mesh::Mesh( Vertex* vertices,int nVertices,
 	{
 		model.positions.emplace_back( vertices[i].pos );
 		model.texCoords.emplace_back( vertices[i].texCoord );
+		model.normals.emplace_back( vertices[i].normal );
 	}
 
 	for( int i = 0; i < nIndices; ++i )
@@ -50,17 +51,21 @@ void Mesh::InitMesh( const IndexedModel& model )
 	glBindVertexArray( vertexArrayObj );
 
 	glGenBuffers( NUM_BUFFERS,vertexArrayBuffers );
+
 	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[POSITION_VB] );
 	glBufferData( GL_ARRAY_BUFFER,model.positions.size() * sizeof( model.positions[0] ),model.positions.data(),GL_STATIC_DRAW );
-
 	glEnableVertexAttribArray( 0 );
 	glVertexAttribPointer( 0,3,GL_FLOAT,GL_FALSE,0,0 );
 
 	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[TEXCOORD_VB] );
 	glBufferData( GL_ARRAY_BUFFER,model.texCoords.size() * sizeof( model.texCoords[0] ),model.texCoords.data(),GL_STATIC_DRAW );
-
 	glEnableVertexAttribArray( 1 );
 	glVertexAttribPointer( 1,2,GL_FLOAT,GL_FALSE,0,0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[NORMAL_VB] );
+	glBufferData( GL_ARRAY_BUFFER,model.normals.size() * sizeof( model.normals[0] ),model.normals.data(),GL_STATIC_DRAW );
+	glEnableVertexAttribArray( 2 );
+	glVertexAttribPointer( 2,3,GL_FLOAT,GL_FALSE,0,0 );
 
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER,vertexArrayBuffers[INDEX_VB] );
 	glBufferData( GL_ELEMENT_ARRAY_BUFFER,model.indices.size() * sizeof( model.indices[0] ),model.indices.data(),GL_STATIC_DRAW );

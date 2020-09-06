@@ -5,10 +5,12 @@
 class Vertex
 {
 public:
-	Vertex( const glm::vec3& pos,const glm::vec2& texCoord )
+	Vertex( const glm::vec3& pos,const glm::vec2& texCoord,
+		const glm::vec3& normal = glm::vec3{ 0.0f,0.0f,0.0f } )
 		:
 		pos( pos ),
-		texCoord( texCoord )
+		texCoord( texCoord ),
+		normal( normal )
 	{}
 	Vertex( float x,float y,float z,float tx,float ty )
 		:
@@ -17,4 +19,5 @@ public:
 public:
 	glm::vec3 pos;
 	glm::vec2 texCoord;
+	glm::vec3 normal;
 };
