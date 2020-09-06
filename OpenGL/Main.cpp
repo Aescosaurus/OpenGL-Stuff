@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Transform.h"
 
 int main( int argc,char* args[] )
 {
@@ -19,16 +20,28 @@ int main( int argc,char* args[] )
 	Mesh mesh{ vertices,sizeof( vertices ) / sizeof( vertices[0] ) };
 	Shader shader{ "Shaders/BasicShader" };
 	Texture tex{ "Images/Bricks2.bmp" };
+	Transform xform;
+
+	float counter = 0.0f;
 
 	while( !display.IsClosed() )
 	{
 		display.Clear( 0.0f,1.0f,1.0f );
-		tex.Bind( 0 );
-		shader.Bind();
 
+		xform.pos.x = sinf( counter );
+		xform.rot.z = counter;
+		xform.scale.x = cosf( counter );
+		xform.scale.y = cosf( counter );
+		xform.scale.z = cosf( counter );
+
+		shader.Bind();
+		tex.Bind( 0 );
+		shader.Update( xform );
 		mesh.Draw();
 
 		display.Update();
+
+		counter += 0.01f;
 	}
 
 	return( 0 );

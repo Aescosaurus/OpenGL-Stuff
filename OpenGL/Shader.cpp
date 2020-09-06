@@ -21,6 +21,8 @@ Shader::Shader( const std::string& filename )
 
 	glValidateProgram( program );
 	CheckShaderError( program,GL_VALIDATE_STATUS,true,"Program failed to validate!" );
+
+	uniforms[TRANSFORM_U] = glGetUniformLocation( program,"transform" );
 }
 
 Shader::~Shader()
@@ -32,6 +34,13 @@ Shader::~Shader()
 	}
 
 	glDeleteProgram( program );
+}
+
+void Shader::Update( const Transform& transform )
+{
+	glm::mat4 model = transform.GetModel();
+
+	glUniformMatrix4fv( uniforms[TRANSFORM_U],1,GL_FALSE,&model[0][0] );
 }
 
 void Shader::Bind()
