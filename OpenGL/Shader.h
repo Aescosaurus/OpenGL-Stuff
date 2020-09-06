@@ -8,7 +8,7 @@
 class Shader
 {
 public:
-	Shader( const std::string& filename );
+	Shader( const std::string& vsFilename,const std::string& fsFilename );
 	Shader( const Shader& ) = delete;
 	Shader& operator=( const Shader& ) = delete;
 	~Shader();

@@ -30,6 +30,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Surface.h" />
@@ -37,8 +38,8 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\BasicShader.ps" />
-    <None Include="Shaders\BasicShader.vs" />
+    <None Include="Shaders\PixelShader.glsl" />
+    <None Include="Shaders\VertexShader.glsl" />
     <None Include="Transform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

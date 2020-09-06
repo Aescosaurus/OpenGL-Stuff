@@ -2,11 +2,11 @@
 #include <fstream>
 #include <iostream>
 
-Shader::Shader( const std::string& filename )
+Shader::Shader( const std::string& vsFilename,const std::string& fsFilename )
 {
 	program = glCreateProgram();
-	shaders[0] = CreateShader( LoadShader( filename + ".vs" ),GL_VERTEX_SHADER );
-	shaders[1] = CreateShader( LoadShader( filename + ".ps" ),GL_FRAGMENT_SHADER );
+	shaders[0] = CreateShader( LoadShader( vsFilename ),GL_VERTEX_SHADER );
+	shaders[1] = CreateShader( LoadShader( fsFilename ),GL_FRAGMENT_SHADER );
 
 	for( int i = 0; i < nShaders; ++i )
 	{

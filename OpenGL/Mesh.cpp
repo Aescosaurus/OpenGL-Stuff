@@ -1,19 +1,18 @@
 #include "Mesh.h"
-#include <vector>
 
-Mesh::Mesh( Vertex* vertices,int nVertices,
-	unsigned int* indices,int nIndices )
+Mesh::Mesh( const std::vector<Vertex>& vertices,
+	const std::vector<unsigned int>& indices )
 {
 	IndexedModel model;
 
-	for( int i = 0; i < nVertices; ++i )
+	for( int i = 0; i < int( vertices.size() ); ++i )
 	{
 		model.positions.emplace_back( vertices[i].pos );
 		model.texCoords.emplace_back( vertices[i].texCoord );
 		model.normals.emplace_back( vertices[i].normal );
 	}
 
-	for( int i = 0; i < nIndices; ++i )
+	for( int i = 0; i < int( indices.size() ); ++i )
 	{
 		model.indices.emplace_back( indices[i] );
 	}

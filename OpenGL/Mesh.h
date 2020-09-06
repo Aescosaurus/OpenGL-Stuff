@@ -3,12 +3,13 @@
 #include "Vertex.h"
 #include <GL/glew.h>
 #include "obj_loader.h"
+#include <vector>
 
 class Mesh
 {
 public:
-	Mesh( Vertex* vertices,int nVertices,
-		unsigned int* indices,int nIndices );
+	Mesh( const std::vector<Vertex>& vertices,
+		const std::vector<unsigned int>& indices );
 	Mesh( const std::string& filename );
 
 	Mesh( const Mesh& ) = delete;
