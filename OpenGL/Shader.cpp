@@ -36,9 +36,9 @@ Shader::~Shader()
 	glDeleteProgram( program );
 }
 
-void Shader::Update( const Transform& transform )
+void Shader::Update( const Transform& transform,const Camera& cam )
 {
-	glm::mat4 model = transform.GetModel();
+	glm::mat4 model = cam.GetViewProj() * transform.GetModel();
 
 	glUniformMatrix4fv( uniforms[TRANSFORM_U],1,GL_FALSE,&model[0][0] );
 }
