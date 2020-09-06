@@ -24,6 +24,10 @@ int main( int argc,char* args[] )
 	// Model cube{ "Models/Cube.obj" };
 	Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 
+	glm::ivec2 mousePos;
+	constexpr float moveSpeed = 0.01f;
+	constexpr float rotSpeed = 0.008f;
+
 	while( !wnd.IsClosed() )
 	{
 		wnd.Clear( 0.0f,1.0f,1.0f );
@@ -34,6 +38,23 @@ int main( int argc,char* args[] )
 		cube.Draw();
 
 		if( wnd.kbd.KeyIsPressed( 'A' ) ) cube.xform.rot.x += 0.02f;
+
+		if( wnd.mouse.LeftIsPressed() )
+		{
+			const auto diff = mousePos - wnd.mouse.GetPos();
+
+			cube.xform.rot.x += float( diff.y ) * rotSpeed;
+			cube.xform.rot.y += float( diff.x ) * rotSpeed;
+		}
+		if( wnd.mouse.RightIsPressed() )
+		{
+			const auto diff = mousePos - wnd.mouse.GetPos();
+
+			cam.GetPos().x -= float( diff.x ) * moveSpeed;
+			cam.GetPos().y -= float( diff.y ) * moveSpeed;
+		}
+
+		mousePos = wnd.mouse.GetPos();
 
 		wnd.Update();
 	}

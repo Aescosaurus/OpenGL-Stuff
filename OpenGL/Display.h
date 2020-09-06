@@ -3,6 +3,7 @@
 #include <string>
 #include <sdl2/SDL.h>
 #include "Keyboard.h"
+#include "Mouse.h"
 
 class Display
 {
@@ -18,6 +19,7 @@ public:
 	bool IsClosed() const;
 public:
 	Keyboard kbd;
+	Mouse mouse;
 private:
 	SDL_Window* pWnd;
 	SDL_GLContext glCtx;

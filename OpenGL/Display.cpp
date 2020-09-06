@@ -58,6 +58,17 @@ void Display::Update()
 		case SDL_KEYUP:
 			kbd.OnKeyRelease( e.key.keysym.sym );
 			break;
+		case SDL_MOUSEMOTION:
+			mouse.SetPos( e.motion.x,e.motion.y );
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			mouse.SetDown( e.button.button == 1,true );
+			mouse.SetPos( e.button.x,e.button.y );
+			break;
+		case SDL_MOUSEBUTTONUP:
+			mouse.SetDown( e.button.button == 1,false );
+			mouse.SetPos( e.button.x,e.button.y );
+			break;
 		case SDL_QUIT:
 			closed = true;
 			break;

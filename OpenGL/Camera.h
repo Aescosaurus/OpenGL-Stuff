@@ -19,6 +19,11 @@ public:
 	{
 		return( perspective * glm::lookAt( pos,pos + forward,up ) );
 	}
+
+	glm::vec3& GetPos()
+	{
+		return( pos );
+	}
 private:
 	glm::mat4 perspective;
 	glm::vec3 pos;
