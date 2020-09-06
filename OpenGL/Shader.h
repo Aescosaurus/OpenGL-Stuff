@@ -8,12 +8,12 @@
 class Shader
 {
 public:
-	Shader( const std::string& vsFilename,const std::string& fsFilename );
+	Shader( const std::string& vsFilename,const std::string& fsFilename,const Camera& cam );
 	Shader( const Shader& ) = delete;
 	Shader& operator=( const Shader& ) = delete;
 	~Shader();
 
-	void Update( const Transform& transform,const Camera& cam );
+	void Update( const Transform& transform ) const;
 	void Bind();
 private:
 	static std::string LoadShader( const std::string& filename );
@@ -32,4 +32,6 @@ private:
 	GLuint program;
 	GLuint shaders[nShaders];
 	GLuint uniforms[NUM_UNIFORMS];
+
+	const Camera& cam;
 };

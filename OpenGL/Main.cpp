@@ -16,26 +16,26 @@ int main( int argc,char* args[] )
 
 	Display wnd{ width,height,"Display" };
 
-	Shader shader{ "Shaders/VertexShader.glsl","Shaders/PixelShader.glsl" };
-	Texture tex{ "Images/Bricks2.bmp" };
 	Camera cam{ glm::vec3( 0.0f,0.0f,-4.0f ),70.0f,
 		float( width ) / float( height ),0.01f,1000.0f };
+	Shader shader{ "Shaders/VertexShader.glsl","Shaders/PixelShader.glsl",cam };
+	Texture tex{ "Images/Bricks.bmp" };
 
-	// Model cube{ "Models/Cube.obj" };
 	Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
+	// Model model2{ "Models/Monkey.obj" };
 
 	glm::ivec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
 	constexpr float rotSpeed = 0.008f;
 
+	shader.Bind();
+
 	while( !wnd.IsClosed() )
 	{
 		wnd.Clear( 0.0f,1.0f,1.0f );
-
-		shader.Bind();
-		tex.Bind( 0 );
-		shader.Update( cube.xform,cam );
-		cube.Draw();
+		
+		cube.Draw( shader );
+		// model2.Draw( shader );
 
 		if( wnd.kbd.KeyIsPressed( 'A' ) ) cube.xform.rot.x += 0.02f;
 
@@ -44,14 +44,14 @@ int main( int argc,char* args[] )
 			const auto diff = mousePos - wnd.mouse.GetPos();
 
 			cube.xform.rot.x += float( diff.y ) * rotSpeed;
-			cube.xform.rot.y += float( diff.x ) * rotSpeed;
+			cube.xform.rot.y -= float( diff.x ) * rotSpeed;
 		}
 		if( wnd.mouse.RightIsPressed() )
 		{
 			const auto diff = mousePos - wnd.mouse.GetPos();
 
-			cam.GetPos().x -= float( diff.x ) * moveSpeed;
-			cam.GetPos().y -= float( diff.y ) * moveSpeed;
+			cube.xform.pos.x += diff.x * moveSpeed;
+			cube.xform.pos.y += diff.y * moveSpeed;
 		}
 
 		mousePos = wnd.mouse.GetPos();

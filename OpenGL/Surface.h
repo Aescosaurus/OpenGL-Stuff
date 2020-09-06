@@ -15,7 +15,7 @@ public:
 		unsigned char r;
 		unsigned char g;
 		unsigned char b;
-		unsigned char a = 1;
+		// unsigned char a = 1;
 	};
 public:
 	Surface( const std::string& filename )

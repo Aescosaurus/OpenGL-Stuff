@@ -8,6 +8,7 @@ varying vec2 texCoord0;
 varying vec3 normal0;
 
 uniform mat4 transform;
+// TODO: Take in light direction as uniform.
 
 void main()
 {

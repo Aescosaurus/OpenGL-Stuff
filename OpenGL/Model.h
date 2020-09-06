@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Shader.h"
 
 class Model
 {
@@ -12,7 +13,6 @@ public:
 		:
 		mesh( filename )
 	{}
-
 	Model( const std::vector<Vertex>& vertices,
 		const std::vector<unsigned int>& indices )
 		:
@@ -23,8 +23,9 @@ public:
 		mesh( vertices,GetDefaultIndices( vertices ) )
 	{}
 	
-	void Draw()
+	void Draw( Shader& shader ) const
 	{
+		shader.Update( xform );
 		mesh.Draw();
 	}
 private:

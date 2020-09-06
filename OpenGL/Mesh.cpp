@@ -32,7 +32,7 @@ Mesh::~Mesh()
 	glDeleteVertexArrays( 1,&vertexArrayObj );
 }
 
-void Mesh::Draw()
+void Mesh::Draw() const
 {
 	glBindVertexArray( vertexArrayObj );
 

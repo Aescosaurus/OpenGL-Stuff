@@ -16,7 +16,7 @@ public:
 	Mesh& operator=( const Mesh& ) = delete;
 	~Mesh();
 
-	void Draw();
+	void Draw() const;
 private:
 	void InitMesh( const IndexedModel& model );
 private:

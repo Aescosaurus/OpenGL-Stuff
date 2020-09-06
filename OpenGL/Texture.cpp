@@ -16,8 +16,10 @@ Texture::Texture( const std::string& fileName )
 	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR );
 	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR );
 
-	glTexImage2D( GL_TEXTURE_2D,0,GL_RGBA,image.GetWidth(),image.GetHeight(),0,GL_RGBA,
+	glTexImage2D( GL_TEXTURE_2D,0,GL_RGBA,image.GetWidth(),image.GetHeight(),0,GL_BGR,
 		GL_UNSIGNED_BYTE,image.GetPixels().data() );
+
+	Bind( 0 ); // May cause problems later idc tho.
 }
 
 Texture::~Texture()

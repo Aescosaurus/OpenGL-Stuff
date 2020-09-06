@@ -2,7 +2,10 @@
 #include <fstream>
 #include <iostream>
 
-Shader::Shader( const std::string& vsFilename,const std::string& fsFilename )
+Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
+	const Camera& cam )
+	:
+	cam( cam )
 {
 	program = glCreateProgram();
 	shaders[0] = CreateShader( LoadShader( vsFilename ),GL_VERTEX_SHADER );
@@ -37,7 +40,7 @@ Shader::~Shader()
 	glDeleteProgram( program );
 }
 
-void Shader::Update( const Transform& transform,const Camera& cam )
+void Shader::Update( const Transform& transform ) const
 {
 	glm::mat4 model = cam.GetViewProj() * transform.GetModel();
 
