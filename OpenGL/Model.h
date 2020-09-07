@@ -42,6 +42,5 @@ private:
 	}
 public:
 	Transform xform;
-private:
 	Mesh mesh;
 };

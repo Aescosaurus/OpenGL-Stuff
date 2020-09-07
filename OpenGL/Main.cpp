@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Cube.h"
+#include "Compound.h"
 
 int main( int argc,char* args[] )
 {
@@ -21,12 +22,15 @@ int main( int argc,char* args[] )
 	Shader shader{ "Shaders/VertexShader.glsl","Shaders/PixelShader.glsl",cam };
 	Texture tex{ "Images/Bricks.bmp" };
 
-	Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
+	// Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 	// Model model2{ "Models/Monkey.obj" };
+	Compound table{ "Models/Table.mikeobj" };
 
 	glm::ivec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
 	constexpr float rotSpeed = 0.008f;
+	constexpr float sens = 0.005f;
+	constexpr float spd = 0.1f;
 
 	shader.Bind();
 
@@ -34,25 +38,35 @@ int main( int argc,char* args[] )
 	{
 		wnd.Clear( 0.0f,1.0f,1.0f );
 		
-		cube.Draw( shader );
+		// cube.Draw( shader );
 		// model2.Draw( shader );
+		table.Draw( shader );
 
-		if( wnd.kbd.KeyIsPressed( 'A' ) ) cube.xform.rot.x += 0.02f;
-
-		if( wnd.mouse.LeftIsPressed() )
-		{
-			const auto diff = mousePos - wnd.mouse.GetPos();
-
-			cube.xform.rot.x += float( diff.y ) * rotSpeed;
-			cube.xform.rot.y -= float( diff.x ) * rotSpeed;
-		}
+		// if( wnd.mouse.LeftIsPressed() )
+		// {
+		// 	const auto diff = mousePos - wnd.mouse.GetPos();
+		// 
+		// 	cube.xform.rot.x += float( diff.y ) * rotSpeed;
+		// 	cube.xform.rot.y -= float( diff.x ) * rotSpeed;
+		// }
 		if( wnd.mouse.RightIsPressed() )
 		{
 			const auto diff = mousePos - wnd.mouse.GetPos();
 
-			cube.xform.pos.x += diff.x * moveSpeed;
-			cube.xform.pos.y += diff.y * moveSpeed;
+			cam.Rotate( glm::rotate( float( diff.x ) * sens,glm::vec3{ 0.0f,1.0f,0.0f } ) );
+			cam.Rotate( glm::rotate( float( -diff.y ) * sens,glm::vec3{ 1.0f,0.0f,0.0f } ) );
 		}
+
+		glm::vec3 move{ 0.0f,0.0f,0.0f };
+		if( wnd.kbd.KeyIsPressed( 'W' ) ) move.z += spd;
+		if( wnd.kbd.KeyIsPressed( 'S' ) ) move.z -= spd;
+		if( wnd.kbd.KeyIsPressed( 'A' ) ) move.x += spd;
+		if( wnd.kbd.KeyIsPressed( 'D' ) ) move.x -= spd;
+		if( wnd.kbd.KeyIsPressed( 'E' ) ) move.y += spd;
+		if( wnd.kbd.KeyIsPressed( 'Q' ) ) move.y -= spd;
+		cam.Translate( cam.GetForward() * move.z );
+		cam.Translate( cam.GetRight() * move.x );
+		cam.Translate( cam.GetUp() * move.y );
 
 		mousePos = wnd.mouse.GetPos();
 
