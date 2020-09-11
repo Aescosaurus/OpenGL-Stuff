@@ -5,12 +5,14 @@
 #include "obj_loader.h"
 #include <vector>
 
+// Holds a single mesh, use ptrs in vecs.
 class Mesh
 {
 public:
 	Mesh( const std::vector<Vertex>& vertices,
 		const std::vector<unsigned int>& indices,
 		const std::vector<glm::vec3>& colors = {} );
+	// Load from .obj file.
 	Mesh( const std::string& filename );
 
 	Mesh( const Mesh& ) = delete;
@@ -22,6 +24,8 @@ private:
 	void InitMesh( const IndexedModel& model,
 		const std::vector<glm::vec3>& colors = {} );
 private:
+	// Vertex attribs used for shaders.
+	// Why isn't this a enum class already?
 	enum
 	{
 		POSITION_VB,

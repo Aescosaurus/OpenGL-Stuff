@@ -16,6 +16,7 @@ Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
 		glAttachShader( program,shaders[i] );
 	}
 
+	// Make sure to update these if you add attribs in mesh!
 	glBindAttribLocation( program,0,"position" );
 	glBindAttribLocation( program,1,"texCoord" );
 	glBindAttribLocation( program,2,"normal" );
@@ -29,6 +30,8 @@ Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
 
 	uniforms[TRANSFORM_U] = glGetUniformLocation( program,"transform" );
 	uniforms[LIGHTDIR_U] = glGetUniformLocation( program,"lightDir" );
+
+	Bind();
 }
 
 Shader::~Shader()
@@ -46,6 +49,7 @@ void Shader::Update( const Transform& transform ) const
 {
 	glm::mat4 model = cam.GetViewProj() * transform.GetModel();
 
+	// Pass uniforms to shaders.
 	glUniformMatrix4fv( uniforms[TRANSFORM_U],1,GL_FALSE,&model[0][0] );
 	glUniform3f( uniforms[LIGHTDIR_U],lightDir.x,lightDir.y,lightDir.z );
 }

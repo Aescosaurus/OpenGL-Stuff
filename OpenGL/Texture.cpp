@@ -5,6 +5,7 @@
 
 Texture::Texture( const Surface& surf )
 {
+	// opengl stuff
 	glGenTextures( 1,&texture );
 	glBindTexture( GL_TEXTURE_2D,texture );
 

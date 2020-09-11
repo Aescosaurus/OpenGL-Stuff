@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "Shader.h"
 
+// Holds a mesh and xform, inherit from this.
 class Model
 {
 public:

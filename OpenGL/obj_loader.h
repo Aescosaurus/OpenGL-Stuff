@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 
+// obj_loader obtained from this tutorial https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh&index=1
 struct OBJIndex
 {
 	unsigned int vertexIndex;

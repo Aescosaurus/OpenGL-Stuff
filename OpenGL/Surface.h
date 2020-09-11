@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include <cassert>
 
+// Holds a bitmap.
 class Surface
 {
 private:
@@ -28,6 +29,8 @@ public:
 	{}
 	Surface( const std::string& filename )
 	{
+		// Deal with windows weirdness.
+
 		std::ifstream file( filename,std::ios::binary );
 		assert( file );
 

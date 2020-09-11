@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+// Handles mouse input (screw glm).
 class Mouse
 {
 	friend class Display;

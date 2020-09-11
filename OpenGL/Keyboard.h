@@ -3,6 +3,7 @@
 #include <sdl2/SDL.h>
 #include <cctype>
 
+// Handles keyboard input.
 class Keyboard
 {
 	friend class Display;

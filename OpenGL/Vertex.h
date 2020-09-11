@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+// Represents a single vertex.
+// TODO: Hold color in here?
 class Vertex
 {
 public:

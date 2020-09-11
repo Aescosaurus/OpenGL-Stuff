@@ -3,9 +3,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+// Camera to view our beautiful models.
 class Camera
 {
 public:
+	// Create perspective proj matm using fov, aspect ratio, and z planes.
 	Camera( const glm::vec3& pos,float fov,float aspect,
 		float zNear,float zFar )
 		:
@@ -20,6 +22,7 @@ public:
 		// pos += ( rot * move );
 		pos += move;
 	}
+	// Rotates forward and up vecs for getviewproj.
 	void Rotate( const glm::mat3& rot )
 	{
 		forward = rot * forward;
@@ -27,6 +30,7 @@ public:
 		this->rot = rot;
 	}
 
+	// Apply to xforms and pass to shader.
 	glm::mat4 GetViewProj() const
 	{
 		return( perspective * glm::lookAt( pos,pos + forward,up ) );

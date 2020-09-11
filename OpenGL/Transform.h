@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+// 3d transform.
 class Transform
 {
 public:
@@ -15,6 +16,7 @@ public:
 		scale( scale )
 	{}
 
+	// Project cam perspective onto this.
 	glm::mat4 GetModel() const
 	{
 		glm::mat4 posMat = glm::translate( pos );

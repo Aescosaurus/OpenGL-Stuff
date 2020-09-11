@@ -7,12 +7,14 @@
 #include <fstream>
 #include "Cube.h"
 
+// Compound model containing multiple cubes, load from mikeobj file.
 class Compound
 {
 public:
 	// File looks like: x y z xscale yscale zscale
 	Compound( const std::string& fileName )
 	{
+		// Ensure curFloat is an actual float.
 		const auto try_emplace = []( const std::string& curFloat,
 			std::vector<std::vector<float>>& modelData )
 		{
@@ -27,6 +29,7 @@ public:
 			}
 		};
 
+		// Read model data from file.
 		std::ifstream in{ fileName };
 		std::vector<std::vector<float>> modelData;
 		while( in.good() )
@@ -34,6 +37,7 @@ public:
 			std::string line;
 			std::getline( in,line );
 			if( line.length() < 1 ) continue;
+
 			modelData.emplace_back();
 			std::string curFloat = "";
 			for( char c : line )
@@ -49,6 +53,7 @@ public:
 			try_emplace( curFloat,modelData );
 		}
 
+		// Convert to cube models.
 		for( const auto& obj : modelData )
 		{
 			glm::vec3 colorData = { 255.0f,0.0f,255.0f };
@@ -67,6 +72,7 @@ public:
 
 	void Draw( Shader& shader ) const
 	{
+		// TODO: Compound transform with rot and scale also.
 		for( const auto& comp : components )
 		{
 			comp->xform.pos += pos;

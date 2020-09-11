@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Camera.h"
 
+// Handle loading and applying shaders.
 class Shader
 {
 public:

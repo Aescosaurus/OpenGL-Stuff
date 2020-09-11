@@ -3,6 +3,7 @@
 #include "Model.h"
 #include <cassert>
 
+// Basic cube model with scale and color.
 class Cube
 	:
 	public Model

@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include "Surface.h"
 
+// This is dumb pls change this.
 class Texture
 {
 public:

@@ -4,6 +4,7 @@
 
 Display::Display( int width,int height,const std::string& title )
 {
+	// sdl+opengl boilerplate.
 	SDL_Init( SDL_INIT_EVERYTHING );
 
 	SDL_GL_SetAttribute( SDL_GL_RED_SIZE,8 );
@@ -22,10 +23,7 @@ Display::Display( int width,int height,const std::string& title )
 
 	GLenum status = glewInit();
 
-	if( status != GLEW_OK )
-	{
-		std::cerr << "Glew failed to initialize!\n";
-	}
+	if( status != GLEW_OK ) std::cerr << "Glew failed to initialize!\n";
 
 	closed = false;
 
@@ -46,8 +44,8 @@ void Display::Update()
 {
 	SDL_GL_SwapWindow( pWnd );
 
+	// Handle input for mouse/keyboard.
 	SDL_Event e;
-
 	while( SDL_PollEvent( &e ) )
 	{
 		switch( e.type )

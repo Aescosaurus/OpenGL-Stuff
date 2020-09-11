@@ -5,6 +5,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 
+// Handles window and sdl/opengl setup.
 class Display
 {
 public:

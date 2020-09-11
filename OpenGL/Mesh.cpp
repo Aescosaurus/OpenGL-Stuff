@@ -47,6 +47,7 @@ void Mesh::Draw() const
 void Mesh::InitMesh( const IndexedModel& model,
 	const std::vector<glm::vec3>& colors )
 {
+	// Pass as attribs to vertex shader.
 	const auto bind_buffer_vertex = [&]( int bufferPos,int vb,const void* arr,int arrSize,int elSize )
 	{
 		glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[vb] );

@@ -12,8 +12,8 @@
 
 int main( int argc,char* args[] )
 {
-	const int width = 800;
-	const int height = 600;
+	constexpr int width = 800;
+	constexpr int height = 600;
 
 	Display wnd{ width,height,"Display" };
 
@@ -35,8 +35,6 @@ int main( int argc,char* args[] )
 	constexpr float rotSpeed = 0.1f;
 	constexpr float sens = 0.005f;
 	constexpr float spd = 0.1f;
-
-	shader.Bind();
 
 	while( !wnd.IsClosed() )
 	{
