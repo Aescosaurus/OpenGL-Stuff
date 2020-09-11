@@ -33,6 +33,7 @@ public:
 		{
 			std::string line;
 			std::getline( in,line );
+			if( line.length() < 1 ) continue;
 			modelData.emplace_back();
 			std::string curFloat = "";
 			for( char c : line )
@@ -68,12 +69,15 @@ public:
 	{
 		for( const auto& comp : components )
 		{
+			comp->xform.pos += pos;
 			shader.Update( comp->xform );
+			comp->xform.pos -= pos;
 			comp->mesh.Draw();
 		}
 	}
 public:
 	// Transform xform;
+	glm::vec3 pos;
 private:
 	// Unique ptr allows multiple model types, as well as avoid copy ctor.  Nice!
 	std::vector<std::unique_ptr<Model>> components;

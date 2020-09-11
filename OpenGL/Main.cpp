@@ -27,6 +27,8 @@ int main( int argc,char* args[] )
 	// Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 	// Model model2{ "Models/Monkey.obj" };
 	Compound table{ "Models/Table.mikeobj" };
+	table.pos.x += 12.0f;
+	Compound checkers{ "Models/Checkers.mikeobj" };
 
 	glm::vec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
@@ -43,6 +45,7 @@ int main( int argc,char* args[] )
 		// cube.Draw( shader );
 		// model2.Draw( shader );
 		table.Draw( shader );
+		checkers.Draw( shader );
 
 		// if( wnd.mouse.LeftIsPressed() )
 		// {
