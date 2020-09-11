@@ -42,8 +42,6 @@ int main( int argc,char* args[] )
 	{
 		wnd.Clear( 0.0f,1.0f,1.0f );
 		
-		// cube.Draw( shader );
-		// model2.Draw( shader );
 		table.Draw( shader );
 		checkers.Draw( shader );
 
@@ -60,8 +58,7 @@ int main( int argc,char* args[] )
 		{
 			const auto diff = mousePos - wnd.mouse.GetPos();
 
-			// TODO: Fix x/z mouse y rotation.
-			cam.Rotate( glm::rotate( float( -diff.y ) * sens,glm::vec3{ 1.0f,0.0f,0.0f } ) );
+			cam.Rotate( glm::rotate( float( -diff.y ) * sens,cam.GetRight() ) );
 			cam.Rotate( glm::rotate( float( diff.x ) * sens,glm::vec3{ 0.0f,1.0f,0.0f } ) );
 		}
 

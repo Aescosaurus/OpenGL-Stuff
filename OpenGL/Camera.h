@@ -47,6 +47,10 @@ public:
 	{
 		return( up );
 	}
+	const glm::mat3& GetRot() const
+	{
+		return( rot );
+	}
 private:
 	glm::mat4 perspective;
 	glm::vec3 pos;
