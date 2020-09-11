@@ -56,9 +56,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\3D Base</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\3D Base</Filter>
-    </ClInclude>
     <ClInclude Include="obj_loader.h">
       <Filter>Header Files\3D Base</Filter>
     </ClInclude>
@@ -86,6 +83,12 @@
     <ClInclude Include="Compound.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="AescUtils.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Transform.h">
@@ -95,6 +98,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\VSTex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\PSColor.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\VSColor.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

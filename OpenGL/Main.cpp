@@ -19,7 +19,8 @@ int main( int argc,char* args[] )
 
 	Camera cam{ glm::vec3( 0.0f,0.0f,-4.0f ),70.0f,
 		float( width ) / float( height ),0.01f,1000.0f };
-	Shader shader{ "Shaders/VSTex.glsl","Shaders/PSTex.glsl",cam };
+	// Shader shader{ "Shaders/VSTex.glsl","Shaders/PSTex.glsl",cam };
+	Shader shader{ "Shaders/VSColor.glsl","Shaders/PSColor.glsl",cam };
 	// Texture tex{ "Images/Bricks.bmp" };
 	Texture tex{ Surface::FromColor( 0,100,100 ) };
 

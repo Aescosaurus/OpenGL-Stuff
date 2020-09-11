@@ -39,10 +39,13 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="AescUtils.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\PSColor.glsl" />
     <None Include="Shaders\PSTex.glsl" />
+    <None Include="Shaders\VSColor.glsl" />
     <None Include="Shaders\VSTex.glsl" />
     <None Include="Transform.h" />
   </ItemGroup>

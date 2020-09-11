@@ -19,6 +19,7 @@ Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
 	glBindAttribLocation( program,0,"position" );
 	glBindAttribLocation( program,1,"texCoord" );
 	glBindAttribLocation( program,2,"normal" );
+	glBindAttribLocation( program,3,"color" );
 
 	glLinkProgram( program );
 	CheckShaderError( program,GL_LINK_STATUS,true,"Program failed to link!" );

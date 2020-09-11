@@ -8,9 +8,10 @@ class Cube
 	public Model
 {
 public:
-	Cube( const glm::vec3& scale = glm::vec3{ 1.0f,1.0f,1.0f } )
+	Cube( const glm::vec3& scale = glm::vec3{ 1.0f,1.0f,1.0f },
+		const glm::vec3& color = glm::vec3{ 255.0f,0.0f,255.0f } )
 		:
-		Model( GetPoints( scale ) )
+		Model( GetPoints( scale ),color )
 	{}
 private:
 	std::vector<Vertex> GetPoints( const glm::vec3& scale )

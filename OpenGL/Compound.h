@@ -50,7 +50,15 @@ public:
 
 		for( const auto& obj : modelData )
 		{
-			std::unique_ptr<Cube> curModel = std::make_unique<Cube>( glm::vec3{ obj[3],obj[4],obj[5] } );
+			glm::vec3 colorData = { 255.0f,0.0f,255.0f };
+			if( obj.size() > 8 )
+			{
+				colorData.r = obj[6] / 255.0f;
+				colorData.g = obj[7] / 255.0f;
+				colorData.b = obj[8] / 255.0f;
+			}
+
+			std::unique_ptr<Cube> curModel = std::make_unique<Cube>( glm::vec3{ obj[3],obj[4],obj[5] },colorData );
 			curModel->xform.pos = glm::vec3{ obj[0],obj[1],obj[2] };
 			components.emplace_back( std::move( curModel ) );
 		}

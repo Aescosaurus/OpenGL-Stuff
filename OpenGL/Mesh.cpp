@@ -1,7 +1,9 @@
 #include "Mesh.h"
+#include "AescUtils.h"
 
 Mesh::Mesh( const std::vector<Vertex>& vertices,
-	const std::vector<unsigned int>& indices )
+	const std::vector<unsigned int>& indices,
+	const std::vector<glm::vec3>& colors )
 {
 	IndexedModel model;
 
@@ -17,14 +19,14 @@ Mesh::Mesh( const std::vector<Vertex>& vertices,
 		model.indices.emplace_back( indices[i] );
 	}
 
-	InitMesh( model );
+	InitMesh( model,colors );
 }
 
 Mesh::Mesh( const std::string& filename )
 {
 	IndexedModel model = OBJModel{ filename }.ToIndexedModel();
 
-	InitMesh( model );
+	InitMesh( model,{} );
 }
 
 Mesh::~Mesh()
@@ -42,8 +44,27 @@ void Mesh::Draw() const
 	glBindVertexArray( 0 );
 }
 
-void Mesh::InitMesh( const IndexedModel& model )
+void Mesh::InitMesh( const IndexedModel& model,
+	const std::vector<glm::vec3>& colors )
 {
+	const auto bind_buffer_vertex = [&]( int bufferPos,int vb,const void* arr,int arrSize,int elSize )
+	{
+		glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[vb] );
+		glBufferData( GL_ARRAY_BUFFER,arrSize,arr,GL_STATIC_DRAW );
+		glEnableVertexAttribArray( bufferPos );
+		glVertexAttribPointer( bufferPos,elSize,GL_FLOAT,GL_FALSE,0,0 );
+	};
+
+	std::vector<glm::vec3> tempColors = colors;
+	if( tempColors.size() < 1 )
+	{
+		tempColors.reserve( model.positions.size() );
+		for( int i = 0; i < int( model.positions.size() ); ++i )
+		{
+			tempColors.emplace_back( defaultColor );
+		}
+	}
+
 	drawCount = int( model.indices.size() );
 
 	glGenVertexArrays( 1,&vertexArrayObj );
@@ -51,20 +72,10 @@ void Mesh::InitMesh( const IndexedModel& model )
 
 	glGenBuffers( NUM_BUFFERS,vertexArrayBuffers );
 
-	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[POSITION_VB] );
-	glBufferData( GL_ARRAY_BUFFER,model.positions.size() * sizeof( model.positions[0] ),model.positions.data(),GL_STATIC_DRAW );
-	glEnableVertexAttribArray( 0 );
-	glVertexAttribPointer( 0,3,GL_FLOAT,GL_FALSE,0,0 );
-
-	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[TEXCOORD_VB] );
-	glBufferData( GL_ARRAY_BUFFER,model.texCoords.size() * sizeof( model.texCoords[0] ),model.texCoords.data(),GL_STATIC_DRAW );
-	glEnableVertexAttribArray( 1 );
-	glVertexAttribPointer( 1,2,GL_FLOAT,GL_FALSE,0,0 );
-
-	glBindBuffer( GL_ARRAY_BUFFER,vertexArrayBuffers[NORMAL_VB] );
-	glBufferData( GL_ARRAY_BUFFER,model.normals.size() * sizeof( model.normals[0] ),model.normals.data(),GL_STATIC_DRAW );
-	glEnableVertexAttribArray( 2 );
-	glVertexAttribPointer( 2,3,GL_FLOAT,GL_FALSE,0,0 );
+	bind_buffer_vertex( 0,POSITION_VB,model.positions.data(),aesc::vec_bytes( model.positions ),3 );
+	bind_buffer_vertex( 1,TEXCOORD_VB,model.texCoords.data(),aesc::vec_bytes( model.texCoords ),2 );
+	bind_buffer_vertex( 2,NORMAL_VB,model.normals.data(),aesc::vec_bytes( model.normals ),3 );
+	bind_buffer_vertex( 3,COLOR_VB,tempColors.data(),aesc::vec_bytes( tempColors ),3 );
 
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER,vertexArrayBuffers[INDEX_VB] );
 	glBufferData( GL_ELEMENT_ARRAY_BUFFER,model.indices.size() * sizeof( model.indices[0] ),model.indices.data(),GL_STATIC_DRAW );
