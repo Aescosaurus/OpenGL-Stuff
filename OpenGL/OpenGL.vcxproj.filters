@@ -88,14 +88,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\VertexShader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\PixelShader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Transform.h">
       <Filter>Header Files\3D Base</Filter>
+    </None>
+    <None Include="Shaders\PSTex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\VSTex.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

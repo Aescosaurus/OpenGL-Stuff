@@ -20,9 +20,11 @@ private:
 	static void CheckShaderError( GLuint shader,GLuint flag,bool program,const std::string& msg );
 	static GLuint CreateShader( const std::string& text,GLenum shaderType );
 private:
+	// Uniforms for shader.
 	enum
 	{
-		TRANSFORM_U,
+		TRANSFORM_U, // xform
+		LIGHTDIR_U, // vec3
 
 		NUM_UNIFORMS
 	};
@@ -34,4 +36,5 @@ private:
 	GLuint uniforms[NUM_UNIFORMS];
 
 	const Camera& cam;
+	static constexpr glm::vec3 lightDir = { 0.3f,0.0f,1.0f };
 };

@@ -27,6 +27,16 @@ public:
 
 		return( posMat * rotMat * scaleMat );
 	}
+
+	// Transform GetOverlay( const Transform& trans ) const
+	// {
+	// 	// todo rotate around point
+	// 	auto temp = *this;
+	// 	temp.scale *= trans.scale;
+	// 	temp.rot += trans.rot;
+	// 	temp.pos += trans.pos;
+	// 	return( temp );
+	// }
 public:
 	glm::vec3 pos;
 	glm::vec3 rot;

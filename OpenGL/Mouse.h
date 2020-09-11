@@ -14,23 +14,24 @@ public:
 	{
 		return( rightDown );
 	}
-	const glm::ivec2& GetPos() const
+	// ivec2 is impossible to convert so just use floats idc.
+	const glm::vec2& GetPos() const
 	{
 		return( pos );
 	}
 	int GetX() const
 	{
-		return( pos.x );
+		return( int( pos.x ) );
 	}
 	int GetY() const
 	{
-		return( pos.y );
+		return( int( pos.y ) );
 	}
 private:
 	void SetPos( int x,int y )
 	{
-		pos.x = x;
-		pos.y = y;
+		pos.x = float( x );
+		pos.y = float( y );
 	}
 	void SetDown( bool left,bool down )
 	{
@@ -38,7 +39,7 @@ private:
 		else rightDown = down;
 	}
 private:
-	glm::ivec2 pos = glm::ivec2{ 0,0 };
+	glm::vec2 pos = glm::vec2{ 0.0f,0.0f };
 	bool leftDown = false;
 	bool rightDown = false;
 };

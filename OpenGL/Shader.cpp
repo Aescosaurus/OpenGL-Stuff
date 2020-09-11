@@ -27,6 +27,7 @@ Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
 	CheckShaderError( program,GL_VALIDATE_STATUS,true,"Program failed to validate!" );
 
 	uniforms[TRANSFORM_U] = glGetUniformLocation( program,"transform" );
+	uniforms[LIGHTDIR_U] = glGetUniformLocation( program,"lightDir" );
 }
 
 Shader::~Shader()
@@ -45,6 +46,7 @@ void Shader::Update( const Transform& transform ) const
 	glm::mat4 model = cam.GetViewProj() * transform.GetModel();
 
 	glUniformMatrix4fv( uniforms[TRANSFORM_U],1,GL_FALSE,&model[0][0] );
+	glUniform3f( uniforms[LIGHTDIR_U],lightDir.x,lightDir.y,lightDir.z );
 }
 
 void Shader::Bind()

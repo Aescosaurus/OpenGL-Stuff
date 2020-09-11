@@ -64,6 +64,8 @@ public:
 			comp->mesh.Draw();
 		}
 	}
+public:
+	// Transform xform;
 private:
 	// Unique ptr allows multiple model types, as well as avoid copy ctor.  Nice!
 	std::vector<std::unique_ptr<Model>> components;

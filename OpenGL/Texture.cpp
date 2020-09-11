@@ -3,10 +3,8 @@
 #include <iostream>
 #include "Surface.h"
 
-Texture::Texture( const std::string& fileName )
+Texture::Texture( const Surface& surf )
 {
-	Surface image{ fileName };
-
 	glGenTextures( 1,&texture );
 	glBindTexture( GL_TEXTURE_2D,texture );
 
@@ -16,11 +14,16 @@ Texture::Texture( const std::string& fileName )
 	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR );
 	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR );
 
-	glTexImage2D( GL_TEXTURE_2D,0,GL_RGBA,image.GetWidth(),image.GetHeight(),0,GL_BGR,
-		GL_UNSIGNED_BYTE,image.GetPixels().data() );
+	glTexImage2D( GL_TEXTURE_2D,0,GL_RGBA,surf.GetWidth(),surf.GetHeight(),0,GL_RGB,
+		GL_UNSIGNED_BYTE,surf.GetPixels().data() );
 
-	Bind( 0 ); // May cause problems later idc tho.
+	Bind( 0 ); // May cause problems for multiple textures idk.
 }
+
+Texture::Texture( const std::string& fileName )
+	:
+	Texture( Surface{ fileName } )
+{}
 
 Texture::~Texture()
 {

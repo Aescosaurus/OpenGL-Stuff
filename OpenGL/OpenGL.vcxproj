@@ -42,8 +42,8 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\PixelShader.glsl" />
-    <None Include="Shaders\VertexShader.glsl" />
+    <None Include="Shaders\PSTex.glsl" />
+    <None Include="Shaders\VSTex.glsl" />
     <None Include="Transform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

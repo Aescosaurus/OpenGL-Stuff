@@ -2,10 +2,12 @@
 
 #include <string>
 #include <GL/glew.h>
+#include "Surface.h"
 
 class Texture
 {
 public:
+	Texture( const Surface& surf );
 	Texture( const std::string& fileName );
 	~Texture();
 

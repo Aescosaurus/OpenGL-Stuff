@@ -8,16 +8,24 @@
 
 class Surface
 {
+private:
+	typedef unsigned char uchar;
 public:
 	class Color
 	{
 	public:
-		unsigned char r;
-		unsigned char g;
-		unsigned char b;
+		uchar r;
+		uchar g;
+		uchar b;
 		// unsigned char a = 1;
 	};
 public:
+	Surface( int width,int height )
+		:
+		width( width ),
+		height( height ),
+		pixels( width * height )
+	{}
 	Surface( const std::string& filename )
 	{
 		std::ifstream file( filename,std::ios::binary );
@@ -69,8 +77,9 @@ public:
 		{
 			for( int x = 0; x < width; ++x )
 			{
-				typedef unsigned char uchar;
-				PutPixel( x,y,Color{ uchar( file.get() ),uchar( file.get() ),uchar( file.get() ) } );
+				Color col{ uchar( file.get() ),uchar( file.get() ),uchar( file.get() ) };
+				std::swap( col.r,col.b );
+				PutPixel( x,y,col );
 
 				if( is32b ) file.seekg( 1,std::ios::cur );
 			}
@@ -99,6 +108,13 @@ public:
 	int GetHeight() const
 	{
 		return( height );
+	}
+	// Generates a 1x1 surface of color c.
+	static Surface FromColor( int r,int g,int b )
+	{
+		Surface temp{ 1,1 };
+		temp.PutPixel( 0,0,Color{ uchar( r ),uchar( g ),uchar( b ) } );
+		return( temp );
 	}
 private:
 	std::vector<Color> pixels;
