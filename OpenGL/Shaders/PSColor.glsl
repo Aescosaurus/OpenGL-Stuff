@@ -11,5 +11,9 @@ void main()
 {
 	// gl_FragColor = texture2D( diffuse,texCoord0 ) *
 	// 	clamp( dot( -lightDir,normal0 ),0.0,1.0 );
-	gl_FragColor = color0 * clamp( dot( -lightDir,normal0 ),0.0,1.0 );
+
+	// gl_FragColor = color0 * clamp( dot( -lightDir,normal0 ),0.0,1.0 );
+
+	gl_FragColor = color0 * clamp( dot( -normal0,lightDir ) + 0.01,0.0,1.0 );
+	// gl_FragColor = color0 * 0.5;
 }

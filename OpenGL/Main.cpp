@@ -9,6 +9,7 @@
 #include "Model.h"
 #include "Cube.h"
 #include "Compound.h"
+#include "Plane.h"
 
 int main( int argc,char* args[] )
 {
@@ -26,9 +27,12 @@ int main( int argc,char* args[] )
 
 	// Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
 	// Model model2{ "Models/Monkey.obj" };
-	Compound table{ "Models/Table.mikeobj" };
-	table.pos.x += 12.0f;
-	Compound checkers{ "Models/Checkers.mikeobj" };
+	// Compound table{ "Models/Table.mikeobj" };
+	// table.pos.y += 0.2f;
+	// Compound checkers{ "Models/Checkers.mikeobj" };
+	Plane plane{ 30,30,2 };
+	plane.xform.pos.y -= 5.0f;
+	plane.xform.rot.x -= glm::pi<float>() / 2.0f;
 
 	glm::vec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
@@ -38,10 +42,11 @@ int main( int argc,char* args[] )
 
 	while( !wnd.IsClosed() )
 	{
-		wnd.Clear( 0.0f,1.0f,1.0f );
+		wnd.Clear( 0.0f,0.0f,0.0f );
 		
-		table.Draw( shader );
-		checkers.Draw( shader );
+		// table.Draw( shader );
+		// checkers.Draw( shader );
+		plane.Draw( shader );
 
 		// if( wnd.mouse.LeftIsPressed() )
 		// {

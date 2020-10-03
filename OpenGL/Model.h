@@ -21,6 +21,12 @@ public:
 		mesh( vertices,indices,GenColorVec( color,vertices.size() ) )
 	{}
 	Model( const std::vector<Vertex>& vertices,
+		const std::vector<unsigned int>& indices,
+		const std::vector<glm::vec3>& colors )
+		:
+		mesh( vertices,indices,colors )
+	{}
+	Model( const std::vector<Vertex>& vertices,
 		const glm::vec3& color = glm::vec3{ 255.0f,0.0f,255.0f } )
 		:
 		mesh( vertices,GetDefaultIndices( vertices ),GenColorVec( color,vertices.size() ) )
@@ -42,7 +48,7 @@ protected:
 		}
 		return( colors );
 	}
-private:
+protected:
 	std::vector<unsigned int> GetDefaultIndices( const std::vector<Vertex>& vertices )
 	{
 		std::vector<unsigned int> indices;
