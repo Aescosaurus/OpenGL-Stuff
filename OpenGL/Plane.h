@@ -13,17 +13,26 @@ public:
 	// todo fix getpoints nonsense
 	Plane( int width,int height,int quality )
 		:
-		Model( GetPoints( width,height,quality ),
-		Model::GetDefaultIndices( GetPoints( width,height,quality ) ),
-		GetColors( GetPoints( width,height,quality ) ) )
+		// Model( GetPoints( width,height,quality ),
+		// Model::GetDefaultIndices( GetPoints( width,height,quality ) ),
+		// GetColors( GetPoints( width,height,quality ) ) )
+		Plane( GetPoints( width,height,quality ),
+			GetColors( GetPoints( width,height,quality ) ) )
 	{
 		assert( quality < width );
 		assert( quality < height );
 		assert( width % quality == 0 );
 		assert( height % quality == 0 );
 	}
-private:
-	std::vector<Vertex> GetPoints( int width,int height,int quality ) const
+	Plane( const std::vector<Vertex>& points,
+		const std::vector<glm::vec3>& colors )
+		:
+		Model( points,
+			Model::GetDefaultIndices( points ),
+			colors )
+	{}
+protected:
+	virtual std::vector<Vertex> GetPoints( int width,int height,int quality ) const
 	{
 		std::vector<Vertex> vertices;
 		const auto hWidth = width / 2;
@@ -60,7 +69,7 @@ private:
 
 		return( vertices );
 	}
-	std::vector<glm::vec3> GetColors( const std::vector<Vertex>& vertices )
+	virtual std::vector<glm::vec3> GetColors( const std::vector<Vertex>& vertices )
 	{
 		std::vector<glm::vec3> colors;
 		for( auto& v : vertices )

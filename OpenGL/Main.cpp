@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include "Compound.h"
 #include "Plane.h"
+#include "PolyHills.h"
 
 int main( int argc,char* args[] )
 {
@@ -20,19 +21,16 @@ int main( int argc,char* args[] )
 
 	Camera cam{ glm::vec3( 0.0f,0.0f,-4.0f ),70.0f,
 		float( width ) / float( height ),0.01f,1000.0f };
-	// Shader shader{ "Shaders/VSTex.glsl","Shaders/PSTex.glsl",cam };
 	Shader shader{ "Shaders/VSColor.glsl","Shaders/PSColor.glsl",cam };
-	// Texture tex{ "Images/Bricks.bmp" };
 	Texture tex{ Surface::FromColor( 0,100,100 ) };
 
-	// Cube cube{ glm::vec3{ 1.1f,0.5f,0.5f } };
-	// Model model2{ "Models/Monkey.obj" };
-	// Compound table{ "Models/Table.mikeobj" };
-	// table.pos.y += 0.2f;
-	// Compound checkers{ "Models/Checkers.mikeobj" };
-	Plane plane{ 30,30,2 };
-	plane.xform.pos.y -= 5.0f;
-	plane.xform.rot.x -= glm::pi<float>() / 2.0f;
+	// Plane plane{ 30,30,2 };
+	// plane.xform.pos.y -= 5.0f;
+	// plane.xform.rot.x -= glm::pi<float>() / 2.0f;
+
+	PolyHills hills{ 30,30 };
+	hills.xform.pos.y -= 5.0f;
+	hills.xform.rot.x -= glm::pi<float>() / 2.0f;
 
 	glm::vec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
@@ -44,19 +42,9 @@ int main( int argc,char* args[] )
 	{
 		wnd.Clear( 0.0f,0.0f,0.0f );
 		
-		// table.Draw( shader );
-		// checkers.Draw( shader );
-		plane.Draw( shader );
+		// plane.Draw( shader );
+		hills.Draw( shader );
 
-		// if( wnd.mouse.LeftIsPressed() )
-		// {
-		// 	const auto diff = ( mousePos - wnd.mouse.GetPos() ) * rotSpeed;
-		// 
-		// 	// cube.xform.rot.x += float( diff.y ) * rotSpeed;
-		// 	// cube.xform.rot.y -= float( diff.x ) * rotSpeed;
-		// 	table.xform.rot.x += float( diff.y ) * rotSpeed;
-		// 	table.xform.rot.y -= float( diff.x ) * rotSpeed;
-		// }
 		if( wnd.mouse.RightIsPressed() )
 		{
 			const auto diff = mousePos - wnd.mouse.GetPos();
