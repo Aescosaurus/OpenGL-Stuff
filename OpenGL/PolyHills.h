@@ -10,7 +10,7 @@ public:
 	PolyHills( int width,int height )
 		:
 		Plane( GetPoints( width,height,quality ),
-			GetColors( GetPoints( width,height,quality ) ) )
+			GenerateColors( width,height,quality ) )
 	{}
 protected:
 	std::vector<Vertex> GetPoints( int width,int height,int quality ) const override
@@ -75,6 +75,7 @@ private:
 
 		smooth.resize( noise.size() );
 
+		// Average elements for perlin noise type values.
 		for( int i = 0; i < passes; ++i )
 		{
 			for( int y = 0; y < height / quality; ++y )
@@ -88,6 +89,24 @@ private:
 		}
 
 		return( smooth );
+	}
+	std::vector<glm::vec3> GenerateColors( int width,int height,int quality ) const
+	{
+		std::vector<glm::vec3> colors;
+
+		for( int y = 0; y < height / quality * 6; ++y )
+		{
+			for( int x = 0; x < width / quality * 6; ++x )
+			{
+				// colors.emplace_back( glm::vec3{
+				// 	Random::Range( 190.0f,255.0f ),
+				// 	Random::Range( 190.0f,255.0f ),
+				// 	Random::Range( 0.0f,100.0f ) } );
+				colors.emplace_back( glm::vec3{ 160.0f,110.0f,30.0f } );
+			}
+		}
+
+		return( colors );
 	}
 private:
 	static constexpr int quality = 2;

@@ -69,7 +69,7 @@ protected:
 
 		return( vertices );
 	}
-	virtual std::vector<glm::vec3> GetColors( const std::vector<Vertex>& vertices )
+	virtual std::vector<glm::vec3> GetColors( const std::vector<Vertex>& vertices ) const
 	{
 		std::vector<glm::vec3> colors;
 		for( auto& v : vertices )
