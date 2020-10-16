@@ -94,15 +94,23 @@ private:
 	{
 		std::vector<glm::vec3> colors;
 
-		for( int y = 0; y < height / quality * 6; ++y )
+		constexpr float colorRng = 30.0f;
+
+		for( int y = 0; y < height / quality; ++y )
 		{
-			for( int x = 0; x < width / quality * 6; ++x )
+			for( int x = 0; x < width / quality; ++x )
 			{
-				// colors.emplace_back( glm::vec3{
-				// 	Random::Range( 190.0f,255.0f ),
-				// 	Random::Range( 190.0f,255.0f ),
-				// 	Random::Range( 0.0f,100.0f ) } );
-				colors.emplace_back( glm::vec3{ 160.0f,110.0f,30.0f } );
+				for( int i = 0; i < 6; ++i ) // 6 dupe vertices
+				{
+					// colors.emplace_back( glm::vec3{
+					// 	Random::Range( 190.0f,255.0f ),
+					// 	Random::Range( 190.0f,255.0f ),
+					// 	Random::Range( 0.0f,100.0f ) } );
+					colors.emplace_back( glm::vec3{
+						160.0f + Random::Range( -colorRng,colorRng ),
+						110.0f + Random::Range( -colorRng,colorRng ),
+						30.0f + Random::Range( -colorRng,colorRng ) } );
+				}
 			}
 		}
 
