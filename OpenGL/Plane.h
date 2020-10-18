@@ -46,6 +46,7 @@ protected:
 				for( const auto& v : GenerateSimplePlane( x,y,quality ) )
 				{
 					vertices.emplace_back( v );
+					vertices.back().normal = glm::normalize( glm::vec3{ 0.0f,0.0f,1.0f } );
 				}
 			}
 		}
@@ -74,8 +75,11 @@ protected:
 		std::vector<glm::vec3> colors;
 		for( auto& v : vertices )
 		{
-			colors.emplace_back( glm::vec3{ Random::Range( 0.0f,255.0f ),
-				Random::Range( 0.0f,255.0f ),Random::Range( 0.0f,255.0f ) } );
+			colors.emplace_back( glm::vec3{
+				Random::Range( 0.0f,1.0f ),
+				Random::Range( 0.0f,1.0f ),
+				Random::Range( 0.0f,1.0f )
+				} );
 		}
 		return( colors );
 	}

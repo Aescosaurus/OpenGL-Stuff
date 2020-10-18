@@ -16,7 +16,7 @@ public:
 	{}
 	Model( const std::vector<Vertex>& vertices,
 		const std::vector<unsigned int>& indices,
-		const glm::vec3& color = glm::vec3{ 255.0f,0.0f,255.0f } )
+		const glm::vec3& color = glm::vec3{ 1.0f,0.0f,1.0f } )
 		:
 		mesh( vertices,indices,GenColorVec( color,vertices.size() ) )
 	{}
@@ -27,7 +27,7 @@ public:
 		mesh( vertices,indices,colors )
 	{}
 	Model( const std::vector<Vertex>& vertices,
-		const glm::vec3& color = glm::vec3{ 255.0f,0.0f,255.0f } )
+		const glm::vec3& color = glm::vec3{ 1.0f,0.0f,1.0f } )
 		:
 		mesh( vertices,GetDefaultIndices( vertices ),GenColorVec( color,vertices.size() ) )
 	{}

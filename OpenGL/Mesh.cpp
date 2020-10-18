@@ -19,6 +19,14 @@ Mesh::Mesh( const std::vector<Vertex>& vertices,
 		model.indices.emplace_back( indices[i] );
 	}
 
+	// Colors must be from 0-1 or else shaders break.
+	for( const auto& c : colors )
+	{
+		assert( c.r >= 0.0f && c.r <= 1.0f );
+		assert( c.g >= 0.0f && c.g <= 1.0f );
+		assert( c.b >= 0.0f && c.b <= 1.0f );
+	}
+
 	InitMesh( model,colors );
 }
 

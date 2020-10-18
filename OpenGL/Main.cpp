@@ -24,9 +24,9 @@ int main( int argc,char* args[] )
 	Shader shader{ "Shaders/VSColor.glsl","Shaders/PSColor.glsl",cam };
 	Texture tex{ Surface::FromColor( 0,100,100 ) };
 
-	// Plane plane{ 30,30,2 };
-	// plane.xform.pos.y -= 5.0f;
-	// plane.xform.rot.x -= glm::pi<float>() / 2.0f;
+	Plane plane{ 30,30,2 };
+	plane.xform.pos.y -= 5.0f;
+	plane.xform.rot.x -= glm::pi<float>() / 2.0f;
 
 	PolyHills hills{ 30,30 };
 	hills.xform.pos.y -= 5.0f;

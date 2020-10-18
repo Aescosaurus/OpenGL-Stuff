@@ -25,6 +25,20 @@ protected:
 			p.pos.z = smooth[int( smoothLoc.y ) * ( width / quality ) + int( smoothLoc.x )] * steepness;
 		}
 
+		// Generate normals cuz lighting is hard.
+		glm::vec3 curNorm = glm::vec3{ 0.0f,0.0f,0.0f };
+		for( int i = 0; i < int( points.size() ); ++i )
+		{
+			if( i % 3 == 0 )
+			{
+				const auto& p1 = points[i + 0].pos;
+				const auto& p2 = points[i + 1].pos;
+				const auto& p3 = points[i + 2].pos;
+				curNorm = glm::normalize( glm::cross( p2 - p1,p3 - p1 ) );
+			}
+			points[i].normal = curNorm;
+		}
+
 		return( points );
 	}
 private:
@@ -107,9 +121,9 @@ private:
 					// 	Random::Range( 190.0f,255.0f ),
 					// 	Random::Range( 0.0f,100.0f ) } );
 					colors.emplace_back( glm::vec3{
-						160.0f + Random::Range( -colorRng,colorRng ),
-						110.0f + Random::Range( -colorRng,colorRng ),
-						30.0f + Random::Range( -colorRng,colorRng ) } );
+						( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+						( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+						( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
 				}
 			}
 		}
@@ -118,6 +132,8 @@ private:
 	}
 private:
 	static constexpr int quality = 2;
+	// Hill height.
 	static constexpr float steepness = 7.0f;
+	// Random map smoothness.
 	static constexpr int passes = 3;
 };
