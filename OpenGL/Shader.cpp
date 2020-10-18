@@ -30,6 +30,7 @@ Shader::Shader( const std::string& vsFilename,const std::string& fsFilename,
 
 	uniforms[TRANSFORM_U] = glGetUniformLocation( program,"transform" );
 	uniforms[LIGHTDIR_U] = glGetUniformLocation( program,"lightDir" );
+	uniforms[GLOBALLIGHT_U] = glGetUniformLocation( program,"globalLight" );
 
 	Bind();
 }
@@ -52,6 +53,7 @@ void Shader::Update( const Transform& transform ) const
 	// Pass uniforms to shaders.
 	glUniformMatrix4fv( uniforms[TRANSFORM_U],1,GL_FALSE,&model[0][0] );
 	glUniform3f( uniforms[LIGHTDIR_U],lightDir.x,lightDir.y,lightDir.z );
+	glUniform1f( uniforms[GLOBALLIGHT_U],globalLight );
 }
 
 void Shader::Bind()

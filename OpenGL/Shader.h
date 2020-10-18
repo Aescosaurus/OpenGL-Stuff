@@ -26,6 +26,7 @@ private:
 	{
 		TRANSFORM_U, // xform
 		LIGHTDIR_U, // vec3
+		GLOBALLIGHT_U, // float
 
 		NUM_UNIFORMS
 	};
@@ -38,4 +39,5 @@ private:
 
 	const Camera& cam;
 	static constexpr glm::vec3 lightDir = { 0.3f,0.0f,1.0f };
+	static constexpr float globalLight = 0.2f;
 };

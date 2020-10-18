@@ -6,6 +6,7 @@ varying vec4 color0;
 
 uniform sampler2D diffuse;
 uniform vec3 lightDir;
+uniform float globalLight;
 
 void main()
 {
@@ -14,5 +15,5 @@ void main()
 
 	// gl_FragColor = color0 * clamp( dot( -lightDir,normal0 ),0.1,0.9 );
 
-	gl_FragColor = color0 * clamp( dot( -normal0,lightDir ) + 0.01,0.0,1.0 );
+	gl_FragColor = color0 * clamp( dot( -normal0,lightDir ),globalLight,1.0 );
 }
