@@ -29,6 +29,10 @@ public:
 		up = rot * up;
 		this->rot = rot;
 	}
+	glm::vec3& GetPos()
+	{
+		return( pos );
+	}
 
 	// Apply to xforms and pass to shader.
 	glm::mat4 GetViewProj() const

@@ -7,6 +7,11 @@ class Mouse
 {
 	friend class Display;
 public:
+	void ClearScroll()
+	{
+		scroll = 0;
+	}
+
 	bool LeftIsPressed() const
 	{
 		return( leftDown );
@@ -28,6 +33,10 @@ public:
 	{
 		return( int( pos.y ) );
 	}
+	int GetScroll() const
+	{
+		return( scroll );
+	}
 private:
 	void SetPos( int x,int y )
 	{
@@ -39,8 +48,13 @@ private:
 		if( left ) leftDown = down;
 		else rightDown = down;
 	}
+	void SetScroll( int amount )
+	{
+		scroll = amount;
+	}
 private:
 	glm::vec2 pos = glm::vec2{ 0.0f,0.0f };
 	bool leftDown = false;
 	bool rightDown = false;
+	int scroll = 0;
 };

@@ -67,6 +67,9 @@ void Display::Update()
 			mouse.SetDown( e.button.button == 1,false );
 			mouse.SetPos( e.button.x,e.button.y );
 			break;
+		case SDL_MOUSEWHEEL:
+			mouse.SetScroll( e.wheel.y );
+			break;
 		case SDL_QUIT:
 			closed = true;
 			break;
