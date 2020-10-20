@@ -9,11 +9,12 @@ class PolyHills
 public:
 	PolyHills( int width,int height )
 		:
-		Plane( GetPoints( width,height,quality ),
-			GenerateColors( width,height,quality ) )
+		// Funcs called in reverse order, need smooth noise for color heightmap.
+		Plane( GenerateColors( width,height,quality ),
+			GetPoints( width,height,quality ) )
 	{}
 protected:
-	std::vector<Vertex> GetPoints( int width,int height,int quality ) const override
+	std::vector<Vertex> GetPoints( int width,int height,int quality ) override
 	{
 		auto points = Plane::GetPoints( width,height,quality );
 
@@ -39,10 +40,12 @@ protected:
 			points[i].normal = curNorm;
 		}
 
+		this->points = points;
+
 		return( points );
 	}
 private:
-	std::vector<float> GenerateSmoothNoiseMap( int width,int height,int quality ) const
+	std::vector<float> GenerateSmoothNoiseMap( int width,int height,int quality )
 	{
 		std::vector<float> noise;
 		std::vector<float> smooth;
@@ -110,22 +113,44 @@ private:
 
 		constexpr float colorRng = 30.0f;
 
-		for( int y = 0; y < height / quality; ++y )
+		// for( int y = 0; y < height / quality; ++y )
+		// {
+		// 	for( int x = 0; x < width / quality; ++x )
+		// 	{
+		// 		for( int i = 0; i < 6; ++i ) // 6 dupe vertices
+		// 		{
+		// 			// colors.emplace_back( glm::vec3{
+		// 			// 	Random::Range( 190.0f,255.0f ),
+		// 			// 	Random::Range( 190.0f,255.0f ),
+		// 			// 	Random::Range( 0.0f,100.0f ) } );
+		// 			colors.emplace_back( glm::vec3{
+		// 				( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+		// 				( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+		// 				( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
+		// 		}
+		// 	}
+		// }
+
+		float min = 999.0f;
+		float max = -999.0f;
+		for( const auto& p : points )
 		{
-			for( int x = 0; x < width / quality; ++x )
-			{
-				for( int i = 0; i < 6; ++i ) // 6 dupe vertices
-				{
-					// colors.emplace_back( glm::vec3{
-					// 	Random::Range( 190.0f,255.0f ),
-					// 	Random::Range( 190.0f,255.0f ),
-					// 	Random::Range( 0.0f,100.0f ) } );
-					colors.emplace_back( glm::vec3{
-						( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
-						( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
-						( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
-				}
-			}
+			if( p.pos.z < min ) min = p.pos.z;
+			if( p.pos.z > max ) max = p.pos.z;
+		}
+
+		const auto grassCol = glm::vec3{ 84.0f,219.0f,84.0f } / 255.0f;
+		const auto mountainCol = glm::vec3{ 156.0f,105.0f,32.0f } / 255.0f;
+
+		colors.reserve( points.size() );
+		for( const auto& point : points )
+		{
+			// colors.emplace_back( glm::vec3{
+			// 	( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+			// 	( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
+			// 	( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
+			const float interp = ( point.pos.z - min ) / ( max - min );
+			colors.emplace_back( glm::mix( grassCol,mountainCol,interp ) );
 		}
 
 		return( colors );
@@ -133,7 +158,8 @@ private:
 private:
 	static constexpr int quality = 2;
 	// Hill height.
-	static constexpr float steepness = 7.0f;
+	static constexpr float steepness = 10.0f;
 	// Random map smoothness.
 	static constexpr int passes = 3;
+	std::vector<Vertex> points;
 };

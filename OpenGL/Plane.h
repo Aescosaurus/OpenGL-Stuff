@@ -31,8 +31,14 @@ public:
 			Model::GetDefaultIndices( points ),
 			colors )
 	{}
+	// Weird initialization order stuff.
+	Plane( const std::vector<glm::vec3>& colors,
+		const std::vector<Vertex>& points )
+		:
+		Plane( points,colors )
+	{}
 protected:
-	virtual std::vector<Vertex> GetPoints( int width,int height,int quality ) const
+	virtual std::vector<Vertex> GetPoints( int width,int height,int quality )
 	{
 		std::vector<Vertex> vertices;
 		const auto hWidth = width / 2;
