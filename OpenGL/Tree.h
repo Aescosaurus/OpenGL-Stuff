@@ -27,8 +27,15 @@ public:
 private:
 	Tree()
 		:
-		model( std::make_unique<Cube>( glm::vec3{ girth,height,girth },glm::vec3{ 0.0f,1.0f,0.0f } ) )
+		model( std::make_unique<Cube>( glm::vec3{ girth,height,girth },RandColor() ) )
 	{}
+
+	glm::vec3 RandColor()
+	{
+		return( glm::vec3{ Random::Range( 0.0f,0.1f ),
+			Random::Range( 0.5f,0.8f ),
+			Random::Range( 0.0f,0.15f ) } );
+	}
 private:
 	static constexpr float girth = 0.3f;
 	static constexpr float height = 1.0f;
