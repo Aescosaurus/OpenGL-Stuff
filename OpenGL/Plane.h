@@ -16,8 +16,8 @@ public:
 		// Model( GetPoints( width,height,quality ),
 		// Model::GetDefaultIndices( GetPoints( width,height,quality ) ),
 		// GetColors( GetPoints( width,height,quality ) ) )
-		Plane( GetPoints( width,height,quality ),
-			GetColors( GetPoints( width,height,quality ) ) )
+		Plane( GeneratePoints( width,height,quality ),
+			GetColors( GeneratePoints( width,height,quality ) ) )
 	{
 		assert( quality < width );
 		assert( quality < height );
@@ -29,7 +29,8 @@ public:
 		:
 		Model( points,
 			Model::GetDefaultIndices( points ),
-			colors )
+			colors ),
+		cachedPoints( points )
 	{}
 	// Weird initialization order stuff.
 	Plane( const std::vector<glm::vec3>& colors,
@@ -37,8 +38,12 @@ public:
 		:
 		Plane( points,colors )
 	{}
+	const std::vector<Vertex>& GetPoints()
+	{
+		return( cachedPoints );
+	}
 protected:
-	virtual std::vector<Vertex> GetPoints( int width,int height,int quality )
+	virtual std::vector<Vertex> GeneratePoints( int width,int height,int quality )
 	{
 		std::vector<Vertex> vertices;
 		const auto hWidth = width / 2;
@@ -94,6 +99,8 @@ protected:
 		}
 		return( colors );
 	}
+protected:
+	std::vector<Vertex> cachedPoints = std::vector<Vertex>{};
 private:
 	static constexpr Vertex points[] =
 	{

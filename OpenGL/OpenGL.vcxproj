@@ -44,6 +44,7 @@
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="AescUtils.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>

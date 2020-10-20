@@ -13,15 +13,10 @@ public:
 		Plane( GenerateColors( width,height,quality ),
 			GeneratePoints( width,height,quality ) )
 	{}
-
-	const std::vector<Vertex>& GetPoints()
-	{
-		return( points );
-	}
 protected:
-	std::vector<Vertex> GeneratePoints( int width,int height,int quality )
+	std::vector<Vertex> GeneratePoints( int width,int height,int quality ) override
 	{
-		auto points = Plane::GetPoints( width,height,quality );
+		auto points = Plane::GeneratePoints( width,height,quality );
 
 		const auto smooth = GenerateSmoothNoiseMap( width * 2,height * 2,quality );
 
@@ -48,7 +43,7 @@ protected:
 			points[i].normal = curNorm;
 		}
 
-		this->points = points;
+		cachedPoints = points;
 
 		return( points );
 	}
@@ -141,7 +136,7 @@ private:
 
 		float min = 999.0f;
 		float max = -999.0f;
-		for( const auto& p : points )
+		for( const auto& p : cachedPoints )
 		{
 			if( p.pos.y < min ) min = p.pos.y;
 			if( p.pos.y > max ) max = p.pos.y;
@@ -150,8 +145,8 @@ private:
 		const auto grassCol = glm::vec3{ 84.0f,219.0f,84.0f } / 255.0f;
 		const auto mountainCol = glm::vec3{ 156.0f,105.0f,32.0f } / 255.0f;
 
-		colors.reserve( points.size() );
-		for( const auto& point : points )
+		colors.reserve( cachedPoints.size() );
+		for( const auto& point : cachedPoints )
 		{
 			// colors.emplace_back( glm::vec3{
 			// 	( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
@@ -169,5 +164,4 @@ private:
 	static constexpr float steepness = 10.0f;
 	// Random map smoothness.
 	static constexpr int passes = 3;
-	std::vector<Vertex> points;
 };
