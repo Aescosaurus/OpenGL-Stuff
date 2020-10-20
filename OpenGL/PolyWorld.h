@@ -8,10 +8,14 @@ class PolyWorld
 public:
 	PolyWorld()
 		:
-		ground( 30,30 )
+		ground( worldSize,worldSize )
+	{}
+
+	void Draw( Shader& shader )
 	{
-		ground.xform.pos.y -= 5.0f;
+		ground.Draw( shader );
 	}
 private:
-	PolyHills ground;
+	static constexpr int worldSize = 50;
+	PolyHills ground; // How do I deal with ground collision???
 };

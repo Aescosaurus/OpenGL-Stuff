@@ -11,10 +11,15 @@ public:
 		:
 		// Funcs called in reverse order, need smooth noise for color heightmap.
 		Plane( GenerateColors( width,height,quality ),
-			GetPoints( width,height,quality ) )
+			GeneratePoints( width,height,quality ) )
 	{}
+
+	const std::vector<Vertex>& GetPoints()
+	{
+		return( points );
+	}
 protected:
-	std::vector<Vertex> GetPoints( int width,int height,int quality ) override
+	std::vector<Vertex> GeneratePoints( int width,int height,int quality )
 	{
 		auto points = Plane::GetPoints( width,height,quality );
 
@@ -22,8 +27,11 @@ protected:
 
 		for( auto& p : points )
 		{
-			const auto smoothLoc = p.pos + glm::vec3{ float( width ) / quality + 1.0f,float( height ) / quality + 1.0f,0.0f };
-			p.pos.z = smooth[int( smoothLoc.y ) * ( width / quality ) + int( smoothLoc.x )] * steepness;
+			// const auto smoothLoc = p.pos + glm::vec3{ float( width ) / quality + 1.0f,float( height ) / quality + 1.0f,0.0f };
+			const auto smoothLoc = glm::vec3{ p.pos.x + float( width ) / quality + 1.0f,
+				p.pos.z + float( height ) / quality + 1.0f,
+				0.0f };
+			p.pos.y = smooth[int( smoothLoc.y ) * ( width / quality ) + int( smoothLoc.x )] * steepness;
 		}
 
 		// Generate normals cuz lighting is hard.
@@ -135,8 +143,8 @@ private:
 		float max = -999.0f;
 		for( const auto& p : points )
 		{
-			if( p.pos.z < min ) min = p.pos.z;
-			if( p.pos.z > max ) max = p.pos.z;
+			if( p.pos.y < min ) min = p.pos.y;
+			if( p.pos.y > max ) max = p.pos.y;
 		}
 
 		const auto grassCol = glm::vec3{ 84.0f,219.0f,84.0f } / 255.0f;
@@ -149,7 +157,7 @@ private:
 			// 	( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
 			// 	( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
 			// 	( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
-			const float interp = ( point.pos.z - min ) / ( max - min );
+			const float interp = ( point.pos.y - min ) / ( max - min );
 			colors.emplace_back( glm::mix( grassCol,mountainCol,interp ) );
 		}
 
