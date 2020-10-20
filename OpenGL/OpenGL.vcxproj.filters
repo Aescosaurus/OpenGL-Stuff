@@ -89,13 +89,16 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Random.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="PolyHills.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="PolyWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

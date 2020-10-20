@@ -27,11 +27,11 @@ int main( int argc,char* args[] )
 
 	Plane plane{ 30,30,2 };
 	plane.xform.pos.y -= 5.0f;
-	plane.xform.rot.x -= glm::pi<float>() / 2.0f;
-
-	PolyHills hills{ 30,30 };
-	hills.xform.pos.y -= 5.0f;
-	hills.xform.rot.x -= glm::pi<float>() / 2.0f;
+	// plane.xform.rot.x -= glm::pi<float>() / 2.0f;
+	// 
+	// PolyHills hills{ 30,30 };
+	// hills.xform.pos.y -= 5.0f;
+	// hills.xform.rot.x -= glm::pi<float>() / 2.0f;
 
 	glm::vec2 mousePos;
 	constexpr float moveSpeed = 0.01f;
@@ -44,8 +44,8 @@ int main( int argc,char* args[] )
 	{
 		wnd.Clear( 0.0f,0.0f,0.0f );
 		
-		// plane.Draw( shader );
-		hills.Draw( shader );
+		plane.Draw( shader );
+		// hills.Draw( shader );
 
 		if( wnd.mouse.LeftIsPressed() )
 		{

@@ -38,6 +38,7 @@
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PolyHills.h" />
+    <ClInclude Include="PolyWorld.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Surface.h" />

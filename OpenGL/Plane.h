@@ -52,7 +52,7 @@ protected:
 				for( const auto& v : GenerateSimplePlane( x,y,quality ) )
 				{
 					vertices.emplace_back( v );
-					vertices.back().normal = glm::normalize( glm::vec3{ 0.0f,0.0f,1.0f } );
+					vertices.back().normal = glm::normalize( glm::vec3{ 0.0f,1.0f,0.0f } );
 				}
 			}
 		}
@@ -62,16 +62,21 @@ protected:
 	std::vector<Vertex> GenerateSimplePlane( int x,int y,int size ) const
 	{
 		std::vector<Vertex> vertices;
+		// constexpr int pointOrder[] =
+		// {
+		// 	0,2,3,
+		// 	0,3,1
+		// };
 		constexpr int pointOrder[] =
 		{
-			0,2,3,
-			0,3,1
+			0,3,2,
+			0,1,3
 		};
 
 		for( int i = 0; i < 6; ++i )
 		{
 			vertices.emplace_back( points[pointOrder[i]] );
-			vertices.back().pos += glm::vec3{ float( x ),float( y ),0.0f };
+			vertices.back().pos += glm::vec3{ float( x ),0.0f,float( y ), };
 		}
 
 		return( vertices );
@@ -92,9 +97,9 @@ protected:
 private:
 	static constexpr Vertex points[] =
 	{
-		Vertex{ -1.0f,1.0f,0.0f },
-		Vertex{ 1.0f,1.0f,0.0f },
-		Vertex{ -1.0f,-1.0f,0.0f },
-		Vertex{ 1.0f,-1.0f,0.0f }
+		Vertex{ -1.0f,0.0f,1.0f },
+		Vertex{ 1.0f,0.0f,1.0f },
+		Vertex{ -1.0f,0.0f,-1.0f },
+		Vertex{ 1.0f,0.0f,-1.0f }
 	};
 };
