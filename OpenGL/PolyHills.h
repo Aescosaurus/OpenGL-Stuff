@@ -60,7 +60,12 @@ private:
 			{
 				return( 0.5f );
 			}
-			else
+			// else
+			// if( x < 0 ) x = width - x;
+			// if( x >= ( width / quality ) ) x -= ( width / quality );
+			// if( y < 0 ) y = height - y;
+			// if( y >= ( height / quality ) ) y -= ( height / quality );
+
 			{
 				return( noise[y * ( width / quality ) + x] );
 			}
@@ -98,13 +103,20 @@ private:
 		// Average elements for perlin noise type values.
 		for( int i = 0; i < passes; ++i )
 		{
-			for( int y = 0; y < height / quality; ++y )
+			// for( int y = 0; y < height / quality; ++y )
+			// {
+			// 	for( int x = 0; x < width / quality; ++x )
+			// 	{
+			// 		smooth[y * ( width / quality ) + x] = avg_3x3( x,y );
+			// 	}
+			// }
+			for( int xy = 0; xy < ( height / quality ) * ( width / quality ); ++xy )
 			{
-				for( int x = 0; x < width / quality; ++x )
-				{
-					smooth[y * ( width / quality ) + x] = avg_3x3( x,y );
-				}
+				const auto randX = Random::RangeI( 0,width / quality );
+				const auto randY = Random::RangeI( 0,height / quality );
+				smooth[randY * ( width / quality ) + randX] = avg_3x3( randX,randY );
 			}
+
 			noise = smooth;
 		}
 
@@ -163,5 +175,5 @@ private:
 	// Hill height.
 	static constexpr float steepness = 10.0f;
 	// Random map smoothness.
-	static constexpr int passes = 3;
+	static constexpr int passes = 5;
 };

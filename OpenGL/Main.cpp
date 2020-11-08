@@ -15,8 +15,8 @@
 
 int main( int argc,char* args[] )
 {
-	constexpr int width = 800;
-	constexpr int height = 600;
+	constexpr int width = 1200;
+	constexpr int height = 800;
 
 	Display wnd{ width,height,"Display" };
 
@@ -27,7 +27,9 @@ int main( int argc,char* args[] )
 
 	Shader shader{ "Shaders/VSColor.glsl","Shaders/PSColor.glsl",cam };
 
-	PolyWorld world;
+	// PolyWorld world;
+	std::vector<std::unique_ptr<PolyWorld>> world;
+	world.emplace_back( std::make_unique<PolyWorld>() );
 
 	// Plane plane{ 30,30,2 };
 	// plane.xform.pos.y -= 5.0f;
@@ -50,7 +52,7 @@ int main( int argc,char* args[] )
 		
 		// plane.Draw( shader );
 		// hills.Draw( shader );
-		world.Draw( shader );
+		world[0]->Draw( shader );
 
 		if( wnd.mouse.LeftIsPressed() )
 		{
@@ -76,16 +78,11 @@ int main( int argc,char* args[] )
 			wnd.mouse.ClearScroll();
 		}
 
-		// glm::vec3 move{ 0.0f,0.0f,0.0f };
-		// if( wnd.kbd.KeyIsPressed( 'W' ) ) move.z += spd;
-		// if( wnd.kbd.KeyIsPressed( 'S' ) ) move.z -= spd;
-		// if( wnd.kbd.KeyIsPressed( 'A' ) ) move.x += spd;
-		// if( wnd.kbd.KeyIsPressed( 'D' ) ) move.x -= spd;
-		// if( wnd.kbd.KeyIsPressed( 'E' ) ) move.y += spd;
-		// if( wnd.kbd.KeyIsPressed( 'Q' ) ) move.y -= spd;
-		// cam.Translate( cam.GetForward() * move.z );
-		// cam.Translate( cam.GetRight() * move.x );
-		// cam.Translate( cam.GetUp() * move.y );
+		if( wnd.kbd.KeyIsPressed( SDLK_r ) )
+		{
+			world.erase( world.begin() );
+			world.emplace_back( std::make_unique<PolyWorld>() );
+		}
 
 		mousePos = wnd.mouse.GetPos();
 

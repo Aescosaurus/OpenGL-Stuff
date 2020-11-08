@@ -28,7 +28,7 @@ public:
 	}
 private:
 	static constexpr int worldSize = 50;
-	static constexpr int treeCount = 10;
+	static constexpr int treeCount = 0; // from 10
 	PolyHills ground;
 	std::vector<Tree> trees;
 };
