@@ -52,6 +52,7 @@ int main( int argc,char* args[] )
 		
 		// plane.Draw( shader );
 		// hills.Draw( shader );
+		world[0]->Update();
 		world[0]->Draw( shader );
 
 		if( wnd.mouse.LeftIsPressed() )

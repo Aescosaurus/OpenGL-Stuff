@@ -17,6 +17,11 @@ public:
 		}
 	}
 
+	void Update()
+	{
+
+	}
+
 	void Draw( Shader& shader )
 	{
 		ground.Draw( shader );
@@ -27,8 +32,8 @@ public:
 		}
 	}
 private:
-	static constexpr int worldSize = 50;
-	static constexpr int treeCount = 0; // from 10
+	static constexpr int worldSize = 100;
+	static constexpr int treeCount = 40;
 	PolyHills ground;
 	std::vector<Tree> trees;
 };
