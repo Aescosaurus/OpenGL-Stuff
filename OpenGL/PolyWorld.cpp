@@ -4,10 +4,8 @@ PolyWorld::PolyWorld()
 	:
 	ground( worldSize,worldSize )
 {
-	for( int i = 0; i < treeCount; ++i )
-	{
-		GenerateTree();
-	}
+	for( int i = 0; i < treeCount; ++i ) GenerateTree();
+	for( int i = 0; i < rabbitCount; ++i ) GenerateRabbit();
 }
 
 void PolyWorld::Update()
@@ -20,19 +18,25 @@ void PolyWorld::Update()
 
 		GenerateTree();
 	}
+
+	for( auto& r : rabbits ) r.RabbitUpdate( trees,dt );
 }
 
 void PolyWorld::Draw( Shader& shader )
 {
 	ground.Draw( shader );
 
-	for( const auto& tree : trees )
-	{
-		tree.Draw( shader );
-	}
+	for( const auto& tree : trees ) tree.Draw( shader );
+
+	for( const auto& rabbit : rabbits ) rabbit.Draw( shader );
 }
 
 void PolyWorld::GenerateTree()
 {
-	trees.emplace_back( Tree::Generate( ground.GetPoints() ) );
+	trees.emplace_back( Tree{ ground.GetPoints() } );
+}
+
+void PolyWorld::GenerateRabbit()
+{
+	// rabbits.emplace_back( Rabbit{ ground.GetPoints(),ground.GetCachedSmooth(),worldSize } );
 }
