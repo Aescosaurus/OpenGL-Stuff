@@ -50,9 +50,9 @@ protected:
 		const auto hHeight = height / 2;
 
 		// todo utilize indices
-		for( int y = -hHeight; y < hHeight; y += quality )
+		for( int y = 0; y < height; y += quality )
 		{
-			for( int x = -hWidth; x < hWidth; x += quality )
+			for( int x = 0; x < width; x += quality )
 			{
 				for( const auto& v : GenerateSimplePlane( x,y,quality ) )
 				{

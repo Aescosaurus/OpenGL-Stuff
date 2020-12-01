@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="PolyWorld.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mouse.h" />

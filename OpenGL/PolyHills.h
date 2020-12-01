@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Plane.h"
+#include "MapGenerator.h"
 
 class PolyHills
 	:
@@ -18,15 +19,16 @@ protected:
 	{
 		auto points = Plane::GeneratePoints( width,height,quality );
 
-		const auto smooth = GenerateSmoothNoiseMap( width * 2,height * 2,quality );
+		const auto smooth = GenerateHeightMap( width * 2,height * 2,quality );
+		assert( smooth.size() * 6 / 4 == points.size() );
 
 		for( auto& p : points )
 		{
 			// const auto smoothLoc = p.pos + glm::vec3{ float( width ) / quality + 1.0f,float( height ) / quality + 1.0f,0.0f };
-			const auto smoothLoc = glm::vec3{ p.pos.x + float( width ) / quality + 1.0f,
-				p.pos.z + float( height ) / quality + 1.0f,
+			const auto smoothLoc = glm::vec3{ p.pos.x + float( width ) / quality + 0.0f,
+				p.pos.z + float( height ) / quality + 0.0f,
 				0.0f };
-			p.pos.y = smooth[int( smoothLoc.y ) * ( width / quality ) + int( smoothLoc.x )] * steepness;
+			p.pos.y = smooth[int( smoothLoc.y ) * ( width / quality ) + int( smoothLoc.x )];
 		}
 
 		// Generate normals cuz lighting is hard.
@@ -48,79 +50,16 @@ protected:
 		return( points );
 	}
 private:
-	std::vector<float> GenerateSmoothNoiseMap( int width,int height,int quality )
+	std::vector<float> GenerateHeightMap( int width,int height,int quality )
 	{
-		std::vector<float> noise;
-		std::vector<float> smooth;
+		MapGenerator::SetDims( width,height,quality );
 
-		auto check_tile = [&]( int x,int y )
-		{
-			if( x < 0 || x >= ( width / quality ) ||
-				y < 0 || y >= ( width / quality ) )
-			{
-				return( 0.5f );
-			}
-			// else
-			// if( x < 0 ) x = width - x;
-			// if( x >= ( width / quality ) ) x -= ( width / quality );
-			// if( y < 0 ) y = height - y;
-			// if( y >= ( height / quality ) ) y -= ( height / quality );
-
-			{
-				return( noise[y * ( width / quality ) + x] );
-			}
-		};
-		auto avg_3x3 = [&]( int checkX,int checkY )
-		{
-			std::vector<float> avgs;
-			avgs.reserve( 3 * 3 );
-			for( int y = checkY - 1; y < checkY + 1; ++y )
-			{
-				for( int x = checkX - 1; x < checkX + 1; ++x )
-				{
-					avgs.emplace_back( check_tile( x,y ) );
-				}
-			}
-
-			float total = 0.0f;
-			for( const auto val : avgs ) total += val;
-			total /= float( avgs.size() );
-
-			return( total );
-		};
-
-		// Fill array with random elements.
-		for( int y = 0; y < height / quality; ++y )
-		{
-			for( int x = 0; x < width / quality; ++x )
-			{
-				noise.emplace_back( Random::Range( 0.0f,1.0f ) );
-			}
-		}
-
-		smooth.resize( noise.size() );
-
-		// Average elements for perlin noise type values.
-		for( int i = 0; i < passes; ++i )
-		{
-			// for( int y = 0; y < height / quality; ++y )
-			// {
-			// 	for( int x = 0; x < width / quality; ++x )
-			// 	{
-			// 		smooth[y * ( width / quality ) + x] = avg_3x3( x,y );
-			// 	}
-			// }
-			for( int xy = 0; xy < ( height / quality ) * ( width / quality ); ++xy )
-			{
-				const auto randX = Random::RangeI( 0,width / quality );
-				const auto randY = Random::RangeI( 0,height / quality );
-				smooth[randY * ( width / quality ) + randX] = avg_3x3( randX,randY );
-			}
-
-			noise = smooth;
-		}
-
-		return( smooth );
+		typedef MapGenerator MG;
+		
+		// return( MG::Combine( MG::Cells( 50,0.5f,0.8f ),MG::SmoothNoise(),
+		// 	0.8f,0.8f ) );
+		return( MG::Combine( MG::Mountain( 10 ),MG::Cells(),
+			0.2f,1.0f ) );
 	}
 	std::vector<glm::vec3> GenerateColors( int width,int height,int quality ) const
 	{
@@ -154,6 +93,8 @@ private:
 			if( p.pos.y > max ) max = p.pos.y;
 		}
 
+		if( min == max ) ++max;
+
 		const auto grassCol = glm::vec3{ 84.0f,219.0f,84.0f } / 255.0f;
 		const auto mountainCol = glm::vec3{ 156.0f,105.0f,32.0f } / 255.0f;
 
@@ -172,8 +113,4 @@ private:
 	}
 private:
 	static constexpr int quality = 2;
-	// Hill height.
-	static constexpr float steepness = 10.0f;
-	// Random map smoothness.
-	static constexpr int passes = 5;
 };

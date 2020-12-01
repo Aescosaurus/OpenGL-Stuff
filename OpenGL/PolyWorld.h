@@ -20,7 +20,7 @@ private:
 private:
 	FrameTimer ft;
 	static constexpr int worldSize = 100;
-	static constexpr int treeCount = 20; // from 40
+	static constexpr int treeCount = 00; // from 40
 	static constexpr int rabbitCount = 10;
 	PolyHills ground;
 	std::vector<Tree> trees;

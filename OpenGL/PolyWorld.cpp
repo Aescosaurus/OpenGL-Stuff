@@ -16,7 +16,7 @@ void PolyWorld::Update()
 	{
 		treeSpawnRate.Reset();
 
-		GenerateTree();
+		// GenerateTree();
 	}
 
 	for( auto& r : rabbits ) r.RabbitUpdate( trees,dt );
