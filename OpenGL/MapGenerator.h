@@ -88,7 +88,7 @@ public:
 		return( smooth );
 	}
 
-	static std::vector<float> Cells( int generations = 100,float cellDensity = 0.5,float spikyness = 0.6 )
+	static std::vector<float> Cells( int generations = 100,float cellDensity = 0.5,float spikyness = 1.6 )
 	{
 		std::vector<float> heights;
 		std::vector<int> cells;
@@ -111,7 +111,7 @@ public:
 			{
 				for( int xx = x - 1; xx < x + 2; ++xx )
 				{
-					if( cells[get_cell( x,y )] > 0 ) ++n;
+					if( cells[get_cell( xx,yy )] > 0 ) ++n;
 				}
 			}
 			return( n );

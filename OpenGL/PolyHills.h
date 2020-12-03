@@ -56,10 +56,15 @@ private:
 
 		typedef MapGenerator MG;
 		
+		return( MG::SmoothNoise() );
+		// return( MG::Mountain() );
+		// return( MG::Cells( 100,0.5f,1.0f ) );
 		// return( MG::Combine( MG::Cells( 50,0.5f,0.8f ),MG::SmoothNoise(),
 		// 	0.8f,0.8f ) );
-		return( MG::Combine( MG::Mountain( 10 ),MG::Cells(),
-			0.2f,1.0f ) );
+		// return( MG::Combine( MG::Mountain( 10 ),MG::Cells(),
+		// 	0.8f,1.0f ) );
+		// return( MG::Combine( MG::Mountain(),MG::SmoothNoise(),
+		// 	0.7f,1.0f ) );
 	}
 	std::vector<glm::vec3> GenerateColors( int width,int height,int quality ) const
 	{
