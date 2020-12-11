@@ -56,15 +56,19 @@ private:
 
 		typedef MapGenerator MG;
 		
-		return( MG::SmoothNoise() );
+		// return( MG::SmoothNoise() );
 		// return( MG::Mountain() );
 		// return( MG::Cells( 100,0.5f,1.0f ) );
+		// return( MG::FreeRange() );
 		// return( MG::Combine( MG::Cells( 50,0.5f,0.8f ),MG::SmoothNoise(),
 		// 	0.8f,0.8f ) );
 		// return( MG::Combine( MG::Mountain( 10 ),MG::Cells(),
 		// 	0.8f,1.0f ) );
 		// return( MG::Combine( MG::Mountain(),MG::SmoothNoise(),
 		// 	0.7f,1.0f ) );
+		// return( MG::Combine( MG::SmoothNoise(),MG::Combine( MG::FreeRange(),MG::Cells() ) ) );
+		return( MG::Combine( MG::FreeRange(),MG::SmoothNoise(),
+			2.0f,0.5f ) );
 	}
 	std::vector<glm::vec3> GenerateColors( int width,int height,int quality ) const
 	{
@@ -104,14 +108,21 @@ private:
 		const auto mountainCol = glm::vec3{ 156.0f,105.0f,32.0f } / 255.0f;
 
 		colors.reserve( cachedPoints.size() );
-		for( const auto& point : cachedPoints )
+		// for( const auto& point : cachedPoints )
+		for( int i = 0; i < int( cachedPoints.size() ); i += 3 )
 		{
 			// colors.emplace_back( glm::vec3{
 			// 	( 160.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
 			// 	( 110.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f,
 			// 	( 30.0f + Random::Range( -colorRng,colorRng ) ) / 255.0f } );
-			const float interp = ( point.pos.y - min ) / ( max - min );
-			colors.emplace_back( glm::mix( grassCol,mountainCol,interp ) );
+
+			const auto point = ( cachedPoints[i].pos + cachedPoints[i + 1].pos + cachedPoints[i + 2].pos ) / glm::vec3{ 3,3,3 };
+
+			const float interp = ( point.y - min ) / ( max - min );
+			for( int i = 0; i < 3; ++i )
+			{
+				colors.emplace_back( glm::mix( grassCol,mountainCol,interp ) );
+			}
 		}
 
 		return( colors );

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Random.h"
 #include <cassert>
+#include <glm/glm.hpp>
 
 class MapGenerator
 {
@@ -178,6 +179,69 @@ public:
 					heights.back() = maxLen - std::sqrt( lenSq );
 				}
 			}
+		}
+
+		return( heights );
+	}
+
+	static std::vector<float> FreeRange( int turns = 13,float moveRange = 3.0f,float initCellPercent = 0.5f,int max = 6 )
+	{
+		std::vector<float> heights;
+		heights.reserve( width * height );
+
+		for( int i = 0; i < width * height; ++i )
+		{
+			heights.emplace_back( 0.0f );
+		}
+
+		std::vector<glm::vec2> cells;
+		for( int i = 0; i < float( width * height ) * initCellPercent; ++i )
+		{
+			cells.emplace_back( glm::vec2{
+				Random::Range( 0.0f,float( width ) ),
+				Random::Range( 0.0f,float( height ) )
+				} );
+		}
+
+		for( int i = 0; i < turns; ++i )
+		{
+			float xCenter = 0.0f;
+			float yCenter = 0.0f;
+			for( auto& cell : cells )
+			{
+				xCenter += cell.x;
+				yCenter += cell.y;
+			}
+			xCenter /= float( cells.size() );
+			yCenter /= float( cells.size() );
+
+			for( auto& cell : cells )
+			{
+				const auto xDiff = xCenter - cell.x;
+				const auto yDiff = yCenter - cell.y;
+				const auto len = sqrt( xDiff * xDiff + yDiff * yDiff );
+				if( len != 0.0f )
+				{
+					cell.x += xDiff / len * Random::Range( 0.0f,moveRange );
+					cell.y += yDiff / len * Random::Range( 0.0f,moveRange );
+				}
+			}
+		}
+
+		for( auto& cell : cells )
+		{
+			if( cell.x < 0.0f ) cell.x = 0.0f;
+			if( cell.x >= float( width ) ) cell.x = float( width - 1 );
+			if( cell.y < 0.0f ) cell.y = 0.0f;
+			if( cell.y >= float( height ) ) cell.y = float( height - 1 );
+
+			auto& curCell = heights[int( cell.y ) * width + int( cell.x )];
+			if( curCell < max ) ++curCell;
+			// else
+			// {
+			// 	++heights[int( cell.y + Random::Range( -moveRange,moveRange ) ) * width +
+			// 		int( cell.x + Random::Range( -moveRange,moveRange ) )];
+			// }
 		}
 
 		return( heights );

@@ -10,7 +10,8 @@ public:
 	{
 		static std::mt19937 randGen{ std::random_device{}( ) };
 
-		assert( min < max ); // Maybe this is better as an if.
+		// assert( min < max ); // Maybe this is better as an if.
+		if( min > max ) std::swap( min,max );
 
 		std::uniform_real_distribution<float> dist( min,max );
 		return( dist( randGen ) );
